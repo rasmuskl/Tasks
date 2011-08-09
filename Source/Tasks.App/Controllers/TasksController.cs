@@ -6,6 +6,7 @@ using Tasks.Model.Commands;
 
 namespace Tasks.App.Controllers
 {
+    [Authorize]
     public class TasksController : Controller
     {
         private CommandBus _commandBus;
