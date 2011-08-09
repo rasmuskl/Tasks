@@ -1,0 +1,15 @@
+syntax: glob
+
+_ReSharper*
+*.suo
+Source/*/obj/
+Source/*/bin/
+*Publish.xml
+*.ReSharper.user
+*.resharper.user
+*.ReSharper
+*.csproj.user
+*.sln.cache
+Publish
+
+Source/packages/*

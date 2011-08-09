@@ -1,0 +1,21 @@
+﻿@model Tasks.App.Models.TasksIndexModel
+
+@{
+    ViewBag.Title = "Tasks";
+}
+
+<h2>Tasks</h2>
+
+<div>
+
+    <ul>
+    @foreach(var task in Model.Tasks)
+    {
+        <li>@task</li>
+    }
+    </ul>
+
+</div>
+
+
+@Html.ActionLink("Create", "Create")

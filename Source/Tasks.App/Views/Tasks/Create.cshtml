@@ -1,0 +1,10 @@
+﻿@model Tasks.App.Models.TaskCreateModel
+
+
+@using(Html.BeginForm())
+{
+    @Html.EditorForModel(Model)
+
+    <input type="submit" value="Create" />
+}
+
