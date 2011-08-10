@@ -10,12 +10,31 @@ namespace Tasks.App
 {
     public class MvcApplication : HttpApplication
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        public void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
+
+            RegisterGlobalFilters(GlobalFilters.Filters);
+            RegisterRoutes(RouteTable.Routes);
+
+            ObjectFactory.Initialize(x =>
+            {
+                x.Scan(s =>
+                {
+                    s.AssembliesFromApplicationBaseDirectory();
+                    s.WithDefaultConventions();
+                });
+            });
+
+            DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
+        }
+
+        private static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
         }
 
-        public static void RegisterRoutes(RouteCollection routes)
+        private static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
@@ -27,52 +46,29 @@ namespace Tasks.App
 
         }
 
-        protected void Application_Start()
+        private class StructureMapDependencyResolver : IDependencyResolver
         {
-            AreaRegistration.RegisterAllAreas();
+            private readonly IContainer _container;
 
-            RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
-
-            ObjectFactory.Initialize(x =>
-                {
-                    x.Scan(s =>
-                        {
-                            s.AssembliesFromApplicationBaseDirectory();
-                            s.WithDefaultConventions();
-                        });
-
-                    x.ToString();
-                });
-
-
-
-            DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
-        }
-    }
-
-    public class StructureMapDependencyResolver : IDependencyResolver
-    {
-        private readonly IContainer _container;
-
-        public StructureMapDependencyResolver(IContainer container)
-        {
-            _container = container;
-        }
-
-        public object GetService(Type serviceType)
-        {
-            if (serviceType.IsAbstract || serviceType.IsInterface)
+            public StructureMapDependencyResolver(IContainer container)
             {
-                return _container.TryGetInstance(serviceType);
+                _container = container;
             }
-            
-            return _container.GetInstance(serviceType);
-        }
 
-        public IEnumerable<object> GetServices(Type serviceType)
-        {
-            return ObjectFactory.GetAllInstances(serviceType).OfType<object>();
+            public object GetService(Type serviceType)
+            {
+                if (serviceType.IsAbstract || serviceType.IsInterface)
+                {
+                    return _container.TryGetInstance(serviceType);
+                }
+
+                return _container.GetInstance(serviceType);
+            }
+
+            public IEnumerable<object> GetServices(Type serviceType)
+            {
+                return ObjectFactory.GetAllInstances(serviceType).OfType<object>();
+            }
         }
     }
 }
