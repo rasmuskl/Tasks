@@ -55,6 +55,9 @@
     <Reference Include="StoryQ">
       <HintPath>..\..\References\StoryQ-2.0.4\StoryQ.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

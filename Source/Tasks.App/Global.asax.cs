@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using StructureMap;
 using System.Linq;
+using Tasks.Model;
+using Tasks.Model.CommandHandlers;
 
 namespace Tasks.App
 {
@@ -19,10 +21,14 @@ namespace Tasks.App
 
             ObjectFactory.Initialize(x =>
             {
-                x.Scan(s =>
+                x.Scan(scanner =>
                 {
-                    s.AssembliesFromApplicationBaseDirectory();
-                    s.WithDefaultConventions();
+                    scanner.TheCallingAssembly();
+                    scanner.AssemblyContainingType<Task>();
+                    
+                    scanner.ConnectImplementationsToTypesClosing(typeof (IHandle<>));
+
+                    scanner.WithDefaultConventions();
                 });
             });
 

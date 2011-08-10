@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Tasks.Model.Events;
 
-namespace Tasks.Model.CommandHandlers
+namespace Tasks.Model
 {
     public class User
     {

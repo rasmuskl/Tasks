@@ -40,6 +40,9 @@
     <Reference Include="EventStore.Serialization.ServiceStack">
       <HintPath>..\..\References\EventStore-2.0.11157.39-net40\plugins\serialization\servicestack\EventStore.Serialization.ServiceStack.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,11 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandExecutor.cs" />
     <Compile Include="CommandHandlers\CommandBus.cs" />
     <Compile Include="CommandHandlers\CreateTaskHandler.cs" />
     <Compile Include="CommandHandlers\IHandle.cs" />
     <Compile Include="CommandHandlers\RegisterUserHandler.cs" />
-    <Compile Include="CommandHandlers\User.cs" />
     <Compile Include="Commands\CreateTaskCommand.cs" />
     <Compile Include="Commands\RegisterUserCommand.cs" />
     <Compile Include="Events\TaskCreatedEvent.cs" />
@@ -61,8 +64,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)..\Tools\nuget install $(ProjectDir)packages.config -o $(SolutionDir)Packages</PreBuildEvent>

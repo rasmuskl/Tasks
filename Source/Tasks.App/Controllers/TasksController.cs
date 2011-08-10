@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Tasks.App.Models;
 using Tasks.Model;
-using Tasks.Model.CommandHandlers;
 using Tasks.Model.Commands;
 
 namespace Tasks.App.Controllers
@@ -9,11 +8,11 @@ namespace Tasks.App.Controllers
     [Authorize]
     public class TasksController : Controller
     {
-        private CommandBus _commandBus;
+        private readonly CommandExecutor _executor;
 
-        public TasksController()
+        public TasksController(CommandExecutor executor)
         {
-            _commandBus = new CommandBus();
+            _executor = executor;
         }
 
         public ActionResult Index()
@@ -34,7 +33,7 @@ namespace Tasks.App.Controllers
                 return View(model);
             }
 
-            _commandBus.Handle(new CreateTaskCommand(model.Task));
+            _executor.Execute(new CreateTaskCommand(model.Task));
 
             return RedirectToAction("Index");
         }

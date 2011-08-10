@@ -5,14 +5,18 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Tasks.App.Models;
 using Tasks.Model;
-using Tasks.Model.CommandHandlers;
 using Tasks.Model.Commands;
 
 namespace Tasks.App.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly CommandBus _commandBus = new CommandBus();
+        private readonly CommandExecutor _executor;
+
+        public AccountController(CommandExecutor executor)
+        {
+            _executor = executor;
+        }
 
         public ActionResult LogOn()
         {
@@ -82,7 +86,7 @@ namespace Tasks.App.Controllers
 
                 var command = new RegisterUserCommand(model.Email, passwordSha1);
 
-                _commandBus.Handle(command);
+                _executor.Execute(command);
 
                 return RedirectToAction("Index", "Home");
             }

@@ -2,7 +2,7 @@
 
 namespace Tasks.Model.CommandHandlers
 {
-    public class CommandBus
+    internal class CommandBus
     {
         public void Handle(object command)
         {
