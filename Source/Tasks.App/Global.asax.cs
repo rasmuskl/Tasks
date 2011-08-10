@@ -7,6 +7,7 @@ using StructureMap;
 using System.Linq;
 using Tasks.Model;
 using Tasks.Model.CommandHandlers;
+using Tasks.Model.Events;
 
 namespace Tasks.App
 {
@@ -27,6 +28,7 @@ namespace Tasks.App
                     scanner.AssemblyContainingType<Task>();
                     
                     scanner.ConnectImplementationsToTypesClosing(typeof (IHandle<>));
+                    scanner.ConnectImplementationsToTypesClosing(typeof (IEventHandler<>));
 
                     scanner.WithDefaultConventions();
                 });

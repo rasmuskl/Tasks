@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using EventStore;
 using EventStore.Dispatcher;
-using Tasks.Model.Events;
+using StructureMap;
 
 namespace Tasks.Model
 {
@@ -17,21 +17,7 @@ namespace Tasks.Model
 
         private static void HandleCommit(Commit commit)
         {
-            foreach (var eventMessage in commit.Events)
-            {
-                if(eventMessage.Body is TaskCreatedEvent)
-                {
-                    var @event = eventMessage.Body as TaskCreatedEvent;
-                    Tasks.Add(@event.TaskCaption);
-                }
-
-                if(eventMessage.Body is UserRegisteredEvent)
-                {
-                    var @event = eventMessage.Body as UserRegisteredEvent;
-                    RegisteredEmails.Add(@event.Email);
-                    PasswordHashes.Add(@event.Email, @event.PasswordSha1);
-                }
-            }
+            ObjectFactory.GetInstance<EventHub>().HandleCommit(commit);
         }
 
         public static List<string> Tasks { get; private set; }

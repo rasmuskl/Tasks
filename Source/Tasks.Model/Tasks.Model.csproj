@@ -53,12 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandExecutor.cs" />
-    <Compile Include="CommandHandlers\CommandBus.cs" />
     <Compile Include="CommandHandlers\CreateTaskHandler.cs" />
     <Compile Include="CommandHandlers\IHandle.cs" />
     <Compile Include="CommandHandlers\RegisterUserHandler.cs" />
     <Compile Include="Commands\CreateTaskCommand.cs" />
     <Compile Include="Commands\RegisterUserCommand.cs" />
+    <Compile Include="EventHandlers\TaskCreatedHandler.cs" />
+    <Compile Include="EventHandlers\UserRegisteredHandler.cs" />
+    <Compile Include="EventHub.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Events\TaskCreatedEvent.cs" />
     <Compile Include="Events\UserRegisteredEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,6 +72,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)..\Tools\nuget install $(ProjectDir)packages.config -o $(SolutionDir)Packages</PreBuildEvent>
