@@ -1,6 +1,10 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using StructureMap;
+using System.Linq;
 
 namespace Tasks.App
 {
@@ -29,6 +33,46 @@ namespace Tasks.App
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            ObjectFactory.Initialize(x =>
+                {
+                    x.Scan(s =>
+                        {
+                            s.AssembliesFromApplicationBaseDirectory();
+                            s.WithDefaultConventions();
+                        });
+
+                    x.ToString();
+                });
+
+
+
+            DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
+        }
+    }
+
+    public class StructureMapDependencyResolver : IDependencyResolver
+    {
+        private readonly IContainer _container;
+
+        public StructureMapDependencyResolver(IContainer container)
+        {
+            _container = container;
+        }
+
+        public object GetService(Type serviceType)
+        {
+            if (serviceType.IsAbstract || serviceType.IsInterface)
+            {
+                return _container.TryGetInstance(serviceType);
+            }
+            
+            return _container.GetInstance(serviceType);
+        }
+
+        public IEnumerable<object> GetServices(Type serviceType)
+        {
+            return ObjectFactory.GetAllInstances(serviceType).OfType<object>();
         }
     }
 }
