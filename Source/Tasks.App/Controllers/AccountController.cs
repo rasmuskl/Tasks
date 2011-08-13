@@ -4,8 +4,9 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
 using Tasks.App.Models;
-using Tasks.Model;
-using Tasks.Model.Commands;
+using Tasks.Read;
+using Tasks.Write;
+using Tasks.Write.Commands;
 
 namespace Tasks.App.Controllers
 {
@@ -33,7 +34,7 @@ namespace Tasks.App.Controllers
 
             string storedPasswordHash;
 
-            if(!Storage.PasswordHashes.TryGetValue(model.Email.ToLowerInvariant(), out storedPasswordHash))
+            if(!ReadStorage.PasswordHashes.TryGetValue(model.Email.ToLowerInvariant(), out storedPasswordHash))
             {
                 ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 return View(model);
@@ -75,7 +76,7 @@ namespace Tasks.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(Storage.RegisteredEmails.Contains(model.Email))
+                if(ReadStorage.RegisteredEmails.Contains(model.Email))
                 {
                     ModelState.AddModelError("", "A user with the given email is already registered.");
                     return View(model);
@@ -84,7 +85,7 @@ namespace Tasks.App.Controllers
                 FormsAuthentication.SetAuthCookie(model.Email, false);
                 string passwordSha1 = Sha1HashPassword(model.Password);
 
-                var command = new RegisterUserCommand(model.Email, passwordSha1);
+                var command = new RegisterUser(model.Email, passwordSha1);
 
                 _executor.Execute(command);
 

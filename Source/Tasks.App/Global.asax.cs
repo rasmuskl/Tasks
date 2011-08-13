@@ -5,9 +5,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using StructureMap;
 using System.Linq;
-using Tasks.Model;
-using Tasks.Model.CommandHandlers;
-using Tasks.Model.Events;
+using Tasks.Read;
+using Tasks.Write.CommandHandlers;
 
 namespace Tasks.App
 {
@@ -25,7 +24,7 @@ namespace Tasks.App
                 x.Scan(scanner =>
                 {
                     scanner.TheCallingAssembly();
-                    scanner.AssemblyContainingType<Task>();
+                    scanner.AssemblyContainingType<EventHub>();
                     
                     scanner.ConnectImplementationsToTypesClosing(typeof (IHandle<>));
                     scanner.ConnectImplementationsToTypesClosing(typeof (IEventHandler<>));

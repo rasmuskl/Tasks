@@ -1,7 +1,8 @@
 ﻿using System.Web.Mvc;
 using Tasks.App.Models;
-using Tasks.Model;
-using Tasks.Model.Commands;
+using Tasks.Read;
+using Tasks.Write;
+using Tasks.Write.Commands;
 
 namespace Tasks.App.Controllers
 {
@@ -17,7 +18,7 @@ namespace Tasks.App.Controllers
 
         public ActionResult Index()
         {
-            return View(new TasksIndexModel { Tasks = Storage.Tasks });
+            return View(new TasksIndexModel { Tasks = ReadStorage.Tasks });
         }
 
         public ActionResult Create()
@@ -33,7 +34,7 @@ namespace Tasks.App.Controllers
                 return View(model);
             }
 
-            _executor.Execute(new CreateTaskCommand(model.Task));
+            _executor.Execute(new CreateTask(model.Task));
 
             return RedirectToAction("Index");
         }
