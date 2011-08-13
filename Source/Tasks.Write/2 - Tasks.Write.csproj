@@ -34,6 +34,9 @@
     <Reference Include="EventStore">
       <HintPath>..\..\References\EventStore-2.0.11157.39-net40\bin\EventStore.dll</HintPath>
     </Reference>
+    <Reference Include="EventStore.Serialization.Json">
+      <HintPath>..\..\References\EventStore-2.0.11157.39-net40\plugins\serialization\json-net\EventStore.Serialization.Json.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
     </Reference>

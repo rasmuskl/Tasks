@@ -13,3 +13,4 @@ Source/*/bin/
 Publish
 
 Source/packages/*
+Source/Packages/*

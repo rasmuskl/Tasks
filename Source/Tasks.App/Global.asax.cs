@@ -6,6 +6,7 @@ using System.Web.Routing;
 using StructureMap;
 using System.Linq;
 using Tasks.Read;
+using Tasks.Write;
 using Tasks.Write.CommandHandlers;
 
 namespace Tasks.App
@@ -24,7 +25,8 @@ namespace Tasks.App
                 x.Scan(scanner =>
                 {
                     scanner.TheCallingAssembly();
-                    scanner.AssemblyContainingType<EventHub>();
+                    scanner.AssemblyContainingType(typeof(IHandle<>));
+                    scanner.AssemblyContainingType(typeof(IEventHandler<>));
                     
                     scanner.ConnectImplementationsToTypesClosing(typeof (IHandle<>));
                     scanner.ConnectImplementationsToTypesClosing(typeof (IEventHandler<>));
@@ -34,6 +36,8 @@ namespace Tasks.App
             });
 
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
+
+            Storage.Init();
         }
 
         private static void RegisterGlobalFilters(GlobalFilterCollection filters)
