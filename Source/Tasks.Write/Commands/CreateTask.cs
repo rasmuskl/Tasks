@@ -4,13 +4,13 @@ namespace Tasks.Write.Commands
 {
     public class CreateTask
     {
-        public CreateTask(string task)
+        public CreateTask(string title)
         {
-            Task = task;
+            Title = title;
             TaskId = Guid.NewGuid();
         }
 
         public Guid TaskId { get; private set; }
-        public string Task { get; private set; }
+        public string Title { get; private set; }
     }
 }

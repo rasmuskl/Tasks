@@ -18,4 +18,20 @@
 </div>
 
 
-@Html.ActionLink("Create", "Create")
+@Html.ActionLink("Create task", "Create")
+
+<h2>Notes</h2>
+
+<div>
+
+    <ul>
+    @foreach(var note in Model.Notes)
+    {
+        <li>@note.Item1 - @note.Item2</li>
+    }
+    </ul>
+
+</div>
+
+
+@Html.ActionLink("Create note", "CreateNote")

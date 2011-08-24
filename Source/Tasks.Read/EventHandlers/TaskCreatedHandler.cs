@@ -6,7 +6,7 @@ namespace Tasks.Read.EventHandlers
     {
         public void Handle(TaskCreated @event)
         {
-            ReadStorage.Tasks.Add(@event.TaskCaption);
+            ReadStorage.Tasks.Add(@event.Title);
         }
     }
 }

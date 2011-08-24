@@ -72,6 +72,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NoteCreateModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\LogOnModel.cs" />
     <Compile Include="Models\TaskCreateModel.cs" />
@@ -165,6 +166,9 @@
       <Project>{E5862D92-EE5A-493E-A9BD-B8993FAF2794}</Project>
       <Name>2 - Tasks.Write</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tasks\CreateNote.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

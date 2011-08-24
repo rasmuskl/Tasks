@@ -2,9 +2,11 @@
 
 namespace Tasks.App.Models
 {
-    public class TaskCreateModel
+    public class NoteCreateModel
     {
         [Required]
         public string Title { get; set; }
+
+        public string Description { get; set; }
     }
 }

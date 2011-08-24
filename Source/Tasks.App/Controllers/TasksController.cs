@@ -18,7 +18,7 @@ namespace Tasks.App.Controllers
 
         public ActionResult Index()
         {
-            return View(new TasksIndexModel { Tasks = ReadStorage.Tasks });
+            return View(new TasksIndexModel { Tasks = ReadStorage.Tasks, Notes = ReadStorage.Notes });
         }
 
         public ActionResult Create()
@@ -34,7 +34,25 @@ namespace Tasks.App.Controllers
                 return View(model);
             }
 
-            _executor.Execute(new CreateTask(model.Task));
+            _executor.Execute(new CreateTask(model.Title));
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult CreateNote()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateNote(NoteCreateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            _executor.Execute(new CreateNote(model.Title, model.Description));
 
             return RedirectToAction("Index");
         }
