@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Tasks.Events;
 
 namespace Tasks.Write
@@ -8,9 +7,7 @@ namespace Tasks.Write
     {
         public void CreateTask(string title, Guid taskId, Guid userId, DateTime utcCreated)
         {
-            var evt = new TaskCreated(title, taskId, userId, utcCreated);
-            Apply(evt);
-            UncommittedEvents.Add(evt);
+            ApplyUncommitted(new TaskCreated(title, taskId, userId, utcCreated));
         }
 
         private void Apply(TaskCreated evt)

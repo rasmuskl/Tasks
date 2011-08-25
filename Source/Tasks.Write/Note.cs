@@ -7,9 +7,7 @@ namespace Tasks.Write
     {
         public void CreateNote(string title, string description, Guid noteId, Guid userId, DateTime utcCreated)
         {
-            var evt = new NoteCreated(title, description, noteId, userId, utcCreated);
-            Apply(evt);
-            UncommittedEvents.Add(evt);
+            ApplyUncommitted(new NoteCreated(title, description, noteId, userId, utcCreated));
         }
 
         private void Apply(NoteCreated evt)

@@ -1,12 +1,37 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Tasks.Write
 {
-    public class AggregateRoot
+    public abstract class AggregateRoot
     {
-        public AggregateRoot()
+        protected AggregateRoot()
         {
             UncommittedEvents = new List<object>();
+        }
+
+        protected void ApplyUncommitted(object evt)
+        {
+            ApplyEvent(evt);
+            UncommittedEvents.Add(evt);
+        }
+
+        protected void ApplyCommitted(object evt)
+        {
+            ApplyEvent(evt);
+        }
+
+        private void ApplyEvent(object evt)
+        {
+            MethodInfo applyMethodInfo = GetType().GetMethod("Apply", BindingFlags.Instance | BindingFlags.NonPublic, null, new[] { evt.GetType() }, null);
+
+            if (applyMethodInfo == null)
+            {
+                throw new InvalidOperationException("Aggregate of type " + GetType().Name + " couldn't apply event of type: " + evt.GetType().Name);
+            }
+
+            applyMethodInfo.Invoke(this, new[] { evt });
         }
 
         public List<object> UncommittedEvents { get; private set; }
