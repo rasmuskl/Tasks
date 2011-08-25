@@ -77,5 +77,14 @@ namespace Tasks.App.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult CompleteTask(Guid id)
+        {
+            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+
+            _executor.Execute(new CompleteTask(id, userId));
+
+            return RedirectToAction("Index");
+        }
     }
 }

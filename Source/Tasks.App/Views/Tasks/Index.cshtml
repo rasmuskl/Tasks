@@ -11,7 +11,7 @@
     <ul>
     @foreach(var task in Model.Tasks)
     {
-        <li>@task.Title</li>
+        <li>@task.Title - @Html.ActionLink("Complete", "CompleteTask", new { id = task.TaskId })</li>
     }
     </ul>
 
