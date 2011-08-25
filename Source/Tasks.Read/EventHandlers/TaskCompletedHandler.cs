@@ -1,4 +1,5 @@
-﻿using Tasks.Events;
+﻿using System.Collections.Generic;
+using Tasks.Events;
 
 namespace Tasks.Read.EventHandlers
 {
@@ -6,8 +7,11 @@ namespace Tasks.Read.EventHandlers
     {
         public void Handle(TaskCompleted evt)
         {
-            
-            
+            List<string> tasks;
+
+            if(ReadStorage.Tasks.TryGetValue(evt.UserId, out tasks))
+            {
+            }
         }
     }
 }
