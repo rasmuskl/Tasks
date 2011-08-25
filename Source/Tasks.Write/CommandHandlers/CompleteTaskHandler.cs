@@ -14,7 +14,7 @@ namespace Tasks.Write.CommandHandlers
 
                 foreach (var committedEvent in stream.CommittedEvents)
                 {
-                    task.ApplyCommitted(committedEvent);
+                    task.ApplyCommitted(committedEvent.Body);
                 }
 
                 task.CompleteTask(command.UtcCompleted, command.UserId);
