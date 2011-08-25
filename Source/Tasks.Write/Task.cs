@@ -10,7 +10,17 @@ namespace Tasks.Write
             ApplyUncommitted(new TaskCreated(title, taskId, userId, utcCreated));
         }
 
+        public void CompleteTask(DateTime utcCompleted)
+        {
+            ApplyUncommitted(new TaskCompleted(utcCompleted));
+        }
+
         private void Apply(TaskCreated evt)
+        {
+            
+        }
+
+        private void Apply(TaskCompleted evt)
         {
             
         }

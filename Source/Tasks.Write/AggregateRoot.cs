@@ -17,7 +17,7 @@ namespace Tasks.Write
             UncommittedEvents.Add(evt);
         }
 
-        protected void ApplyCommitted(object evt)
+        public void ApplyCommitted(object evt)
         {
             ApplyEvent(evt);
         }

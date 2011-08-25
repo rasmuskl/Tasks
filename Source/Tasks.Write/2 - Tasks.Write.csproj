@@ -51,10 +51,12 @@
   <ItemGroup>
     <Compile Include="AggregateRoot.cs" />
     <Compile Include="CommandExecutor.cs" />
+    <Compile Include="CommandHandlers\CompleteTaskHandler.cs" />
     <Compile Include="CommandHandlers\CreateNoteHandler.cs" />
     <Compile Include="CommandHandlers\CreateTaskHandler.cs" />
     <Compile Include="CommandHandlers\IHandle.cs" />
     <Compile Include="CommandHandlers\RegisterUserHandler.cs" />
+    <Compile Include="Commands\CompleteTask.cs" />
     <Compile Include="Commands\CreateNote.cs" />
     <Compile Include="Commands\CreateTask.cs" />
     <Compile Include="Commands\RegisterUser.cs" />
