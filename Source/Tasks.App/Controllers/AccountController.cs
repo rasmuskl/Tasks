@@ -76,7 +76,7 @@ namespace Tasks.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(ReadStorage.RegisteredEmails.Contains(model.Email))
+                if(ReadStorage.RegisteredEmails.ContainsKey(model.Email))
                 {
                     ModelState.AddModelError("", "A user with the given email is already registered.");
                     return View(model);

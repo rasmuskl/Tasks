@@ -13,7 +13,7 @@ namespace Tasks.Write.CommandHandlers
             {
                 var note = new Note();
 
-                note.CreateNote(command.Title, command.Description, command.NoteId);
+                note.CreateNote(command.Title, command.Description, command.NoteId, command.UserId);
 
                 foreach (var uncommittedEvent in note.UncommittedEvents)
                 {

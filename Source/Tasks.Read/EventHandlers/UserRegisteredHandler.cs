@@ -6,7 +6,7 @@ namespace Tasks.Read.EventHandlers
     {
         public void Handle(UserRegistered @event)
         {
-            ReadStorage.RegisteredEmails.Add(@event.Email);
+            ReadStorage.RegisteredEmails.Add(@event.Email, @event.UserId);
             ReadStorage.PasswordHashes.Add(@event.Email, @event.PasswordSha1);
         }
     }

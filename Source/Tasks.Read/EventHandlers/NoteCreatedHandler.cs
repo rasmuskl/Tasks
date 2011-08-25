@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Tasks.Events;
 
 namespace Tasks.Read.EventHandlers
@@ -7,7 +8,12 @@ namespace Tasks.Read.EventHandlers
     {
         public void Handle(NoteCreated @event)
         {
-            ReadStorage.Notes.Add(new Tuple<string, string>(@event.Title, @event.Description));
+            if(!ReadStorage.Notes.ContainsKey(@event.UserId))
+            {
+                ReadStorage.Notes[@event.UserId] = new List<Tuple<string, string>>();
+            }
+
+            ReadStorage.Notes[@event.UserId].Add(new Tuple<string, string>(@event.Title, @event.Description));
         }
     }
 }

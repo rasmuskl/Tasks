@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Tasks.Events;
 
 namespace Tasks.Read.EventHandlers
@@ -6,7 +7,12 @@ namespace Tasks.Read.EventHandlers
     {
         public void Handle(TaskCreated @event)
         {
-            ReadStorage.Tasks.Add(@event.Title);
+            if (!ReadStorage.Tasks.ContainsKey(@event.UserId))
+            {
+                ReadStorage.Tasks[@event.UserId] = new List<string>();
+            }
+
+            ReadStorage.Tasks[@event.UserId].Add(@event.Title);
         }
     }
 }

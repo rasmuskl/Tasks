@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Tasks.App.Models;
 using Tasks.Read;
 using Tasks.Write;
@@ -18,7 +20,21 @@ namespace Tasks.App.Controllers
 
         public ActionResult Index()
         {
-            return View(new TasksIndexModel { Tasks = ReadStorage.Tasks, Notes = ReadStorage.Notes });
+            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+
+            List<string> tasks;
+            if(!ReadStorage.Tasks.TryGetValue(userId, out tasks))
+            {
+                tasks = new List<string>();
+            }
+
+            List<Tuple<string, string>> notes;
+            if(!ReadStorage.Notes.TryGetValue(userId, out notes))
+            {
+                notes = new List<Tuple<string, string>>();
+            }
+
+            return View(new TasksIndexModel { Tasks = tasks, Notes = notes });
         }
 
         public ActionResult Create()
@@ -29,12 +45,14 @@ namespace Tasks.App.Controllers
         [HttpPost]
         public ActionResult Create(TaskCreateModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            _executor.Execute(new CreateTask(model.Title));
+            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+
+            _executor.Execute(new CreateTask(model.Title, userId));
 
             return RedirectToAction("Index");
         }
@@ -52,7 +70,9 @@ namespace Tasks.App.Controllers
                 return View(model);
             }
 
-            _executor.Execute(new CreateNote(model.Title, model.Description));
+            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+
+            _executor.Execute(new CreateNote(model.Title, model.Description, userId));
 
             return RedirectToAction("Index");
         }

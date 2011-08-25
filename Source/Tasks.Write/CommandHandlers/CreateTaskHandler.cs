@@ -12,7 +12,7 @@ namespace Tasks.Write.CommandHandlers
             {
                 var task = new Task();
 
-                task.CreateTask(command.Title, command.TaskId);
+                task.CreateTask(command.Title, command.TaskId, command.UserId);
 
                 foreach (var uncommittedEvent in task.UncommittedEvents)
                 {
