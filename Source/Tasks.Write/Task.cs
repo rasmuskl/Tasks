@@ -11,9 +11,9 @@ namespace Tasks.Write
             UncommittedEvents = new List<object>();
         }
 
-        public void CreateTask(string title, Guid taskId, Guid userId)
+        public void CreateTask(string title, Guid taskId, Guid userId, DateTime utcCreated)
         {
-            Apply(new TaskCreated(title, taskId, userId));
+            Apply(new TaskCreated(title, taskId, userId, utcCreated));
         }
 
         private void Apply(TaskCreated evt)
