@@ -9,6 +9,7 @@ namespace Tasks.Write.Commands
             Title = title;
             Description = description;
             UserId = userId;
+            UtcCreated = DateTime.UtcNow;
             NoteId = Guid.NewGuid();
         }
 
@@ -16,5 +17,6 @@ namespace Tasks.Write.Commands
         public string Title { get; private set; }
         public string Description { get; private set; }
         public Guid UserId { get; private set; }
+        public DateTime UtcCreated { get; private set; }
     }
 }
