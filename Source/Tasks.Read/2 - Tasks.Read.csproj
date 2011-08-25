@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventHandlers\NoteCreatedHandler.cs" />
+    <Compile Include="EventHandlers\TaskCompletedHandler.cs" />
     <Compile Include="EventHandlers\TaskCreatedHandler.cs" />
     <Compile Include="EventHandlers\UserRegisteredHandler.cs" />
     <Compile Include="EventHub.cs" />

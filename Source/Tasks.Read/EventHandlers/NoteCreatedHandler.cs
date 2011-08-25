@@ -6,14 +6,14 @@ namespace Tasks.Read.EventHandlers
 {
     public class NoteCreatedHandler : IEventHandler<NoteCreated>
     {
-        public void Handle(NoteCreated @event)
+        public void Handle(NoteCreated evt)
         {
-            if(!ReadStorage.Notes.ContainsKey(@event.UserId))
+            if(!ReadStorage.Notes.ContainsKey(evt.UserId))
             {
-                ReadStorage.Notes[@event.UserId] = new List<Tuple<string, string>>();
+                ReadStorage.Notes[evt.UserId] = new List<Tuple<string, string>>();
             }
 
-            ReadStorage.Notes[@event.UserId].Add(new Tuple<string, string>(@event.Title, @event.Description));
+            ReadStorage.Notes[evt.UserId].Add(new Tuple<string, string>(evt.Title, evt.Description));
         }
     }
 }

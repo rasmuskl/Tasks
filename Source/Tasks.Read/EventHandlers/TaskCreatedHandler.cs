@@ -5,14 +5,14 @@ namespace Tasks.Read.EventHandlers
 {
     public class TaskCreatedHandler : IEventHandler<TaskCreated>
     {
-        public void Handle(TaskCreated @event)
+        public void Handle(TaskCreated evt)
         {
-            if (!ReadStorage.Tasks.ContainsKey(@event.UserId))
+            if (!ReadStorage.Tasks.ContainsKey(evt.UserId))
             {
-                ReadStorage.Tasks[@event.UserId] = new List<string>();
+                ReadStorage.Tasks[evt.UserId] = new List<string>();
             }
 
-            ReadStorage.Tasks[@event.UserId].Add(@event.Title);
+            ReadStorage.Tasks[evt.UserId].Add(evt.Title);
         }
     }
 }

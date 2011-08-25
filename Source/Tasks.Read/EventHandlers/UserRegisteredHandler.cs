@@ -4,10 +4,10 @@ namespace Tasks.Read.EventHandlers
 {
     public class UserRegisteredHandler : IEventHandler<UserRegistered>
     {
-        public void Handle(UserRegistered @event)
+        public void Handle(UserRegistered evt)
         {
-            ReadStorage.RegisteredEmails.Add(@event.Email, @event.UserId);
-            ReadStorage.PasswordHashes.Add(@event.Email, @event.PasswordSha1);
+            ReadStorage.RegisteredEmails.Add(evt.Email, evt.UserId);
+            ReadStorage.PasswordHashes.Add(evt.Email, evt.PasswordSha1);
         }
     }
 }

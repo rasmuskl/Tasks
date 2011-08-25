@@ -2,6 +2,6 @@ namespace Tasks.Read
 {
     public interface IEventHandler<T>
     {
-        void Handle(T @event);
+        void Handle(T evt);
     }
 }
