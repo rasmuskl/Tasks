@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Tasks.App.Models;
 using Tasks.Read;
+using Tasks.Read.Models;
 using Tasks.Write;
 using Tasks.Write.Commands;
 
@@ -22,10 +23,10 @@ namespace Tasks.App.Controllers
         {
             var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
 
-            List<string> tasks;
+            List<TaskReadModel> tasks;
             if(!ReadStorage.Tasks.TryGetValue(userId, out tasks))
             {
-                tasks = new List<string>();
+                tasks = new List<TaskReadModel>();
             }
 
             List<Tuple<string, string>> notes;

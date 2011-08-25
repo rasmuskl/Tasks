@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Tasks.Events;
+using Tasks.Read.Models;
 
 namespace Tasks.Read.EventHandlers
 {
@@ -9,10 +10,10 @@ namespace Tasks.Read.EventHandlers
         {
             if (!ReadStorage.Tasks.ContainsKey(evt.UserId))
             {
-                ReadStorage.Tasks[evt.UserId] = new List<string>();
+                ReadStorage.Tasks[evt.UserId] = new List<TaskReadModel>();
             }
 
-            ReadStorage.Tasks[evt.UserId].Add(evt.Title);
+            ReadStorage.Tasks[evt.UserId].Add(new TaskReadModel { TaskId = evt.TaskId, Title = evt.Title });
         }
     }
 }
