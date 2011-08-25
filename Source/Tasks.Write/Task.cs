@@ -4,23 +4,18 @@ using Tasks.Events;
 
 namespace Tasks.Write
 {
-    public class Task
+    public class Task : AggregateRoot
     {
-        public Task()
-        {
-            UncommittedEvents = new List<object>();
-        }
-
         public void CreateTask(string title, Guid taskId, Guid userId, DateTime utcCreated)
         {
-            Apply(new TaskCreated(title, taskId, userId, utcCreated));
+            var evt = new TaskCreated(title, taskId, userId, utcCreated);
+            Apply(evt);
+            UncommittedEvents.Add(evt);
         }
 
         private void Apply(TaskCreated evt)
         {
-            UncommittedEvents.Add(evt);
+            
         }
-
-        public List<object> UncommittedEvents { get; private set; }
     }
 }

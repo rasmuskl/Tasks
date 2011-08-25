@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregateRoot.cs" />
     <Compile Include="CommandExecutor.cs" />
     <Compile Include="CommandHandlers\CreateNoteHandler.cs" />
     <Compile Include="CommandHandlers\CreateTaskHandler.cs" />

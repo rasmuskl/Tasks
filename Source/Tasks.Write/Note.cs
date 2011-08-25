@@ -1,26 +1,19 @@
 using System;
-using System.Collections.Generic;
 using Tasks.Events;
 
 namespace Tasks.Write
 {
-    public class Note
+    public class Note : AggregateRoot
     {
-        public Note()
-        {
-            UncommittedEvents = new List<object>();
-        }
-
         public void CreateNote(string title, string description, Guid noteId, Guid userId, DateTime utcCreated)
         {
-            Apply(new NoteCreated(title, description, noteId, userId, utcCreated));
+            var evt = new NoteCreated(title, description, noteId, userId, utcCreated);
+            Apply(evt);
+            UncommittedEvents.Add(evt);
         }
 
         private void Apply(NoteCreated evt)
         {
-            UncommittedEvents.Add(evt);
         }
-
-        public List<object> UncommittedEvents { get; private set; }
     }
 }

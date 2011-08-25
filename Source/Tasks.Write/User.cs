@@ -4,13 +4,8 @@ using Tasks.Events;
 
 namespace Tasks.Write
 {
-    public class User
+    public class User : AggregateRoot
     {
-        public User()
-        {
-            UncommittedEvents = new List<object>();
-        }
-
         public void RegisterUser(Guid userId, string email, string passwordSha1)
         {
             var @event = new UserRegistered(userId, email, passwordSha1);
@@ -24,7 +19,5 @@ namespace Tasks.Write
         {
 
         }
-
-        public List<object> UncommittedEvents { get; private set; }
     }
 }
