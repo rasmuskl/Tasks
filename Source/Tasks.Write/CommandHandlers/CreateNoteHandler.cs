@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using EventStore;
 using Tasks.Write.Commands;
 
@@ -7,9 +6,16 @@ namespace Tasks.Write.CommandHandlers
 {
     public class CreateNoteHandler : IHandle<CreateNote>
     {
+        private readonly IStoreEvents _eventStore;
+
+        public CreateNoteHandler(IStoreEvents eventStore)
+        {
+            _eventStore = eventStore;
+        }
+
         public void Handle(CreateNote command)
         {
-            using(IEventStream stream = Storage.Store.CreateStream(command.NoteId))
+            using(var stream = _eventStore.CreateStream(command.NoteId))
             {
                 var note = new Note();
 
