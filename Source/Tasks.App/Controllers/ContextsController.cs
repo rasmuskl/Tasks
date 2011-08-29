@@ -16,5 +16,10 @@ namespace Tasks.App.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public ActionResult Create()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
