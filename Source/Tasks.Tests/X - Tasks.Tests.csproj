@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Write\when_create_context_is_processed.cs" />
     <Compile Include="Write\when_create_note_is_processed.cs" />
   </ItemGroup>
   <ItemGroup>
