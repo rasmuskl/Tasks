@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EventStore, Version=2.0.11157.39, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
+      <HintPath>..\packages\EventStore.2.0.11157\lib\net40\EventStore.dll</HintPath>
+    </Reference>
+    <Reference Include="EventStore.Serialization.Json, Version=2.0.11157.39, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
+      <HintPath>..\packages\EventStore.Serialization.Json.2.0.11157\lib\net40\EventStore.Serialization.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.3.5.8\lib\35\Newtonsoft.Json.dll</HintPath>
@@ -43,6 +49,7 @@
       <HintPath>..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -66,6 +73,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\EventStoreRegistry.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TasksController.cs" />

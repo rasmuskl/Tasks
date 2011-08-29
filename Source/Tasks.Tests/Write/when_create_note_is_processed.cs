@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using EventStore;
 using EventStore.Dispatcher;
-using FakeItEasy;
 using Machine.Specifications;
 using Tasks.Events;
 using System.Linq;
-using Tasks.Write;
 using Tasks.Write.CommandHandlers;
 using Tasks.Write.Commands;
 
@@ -14,11 +12,13 @@ namespace Tasks.Tests.Write
 {
     public class when_create_note_is_processed
     {
-        static List<object> _eventsPublished = new List<object>();
+        static List<object> _eventsPublished;
         static IStoreEvents _storeEvents;
 
         Establish context = () =>
             {
+                _eventsPublished = new List<object>();
+
                 _storeEvents = Wireup
                     .Init()
                     .UsingInMemoryPersistence()

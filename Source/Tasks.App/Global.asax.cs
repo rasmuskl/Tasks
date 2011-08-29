@@ -31,6 +31,8 @@ namespace Tasks.App
                     scanner.ConnectImplementationsToTypesClosing(typeof (IHandle<>));
                     scanner.ConnectImplementationsToTypesClosing(typeof (IEventHandler<>));
 
+                    scanner.LookForRegistries();
+
                     scanner.WithDefaultConventions();
                 });
             });

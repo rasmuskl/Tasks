@@ -1,19 +1,14 @@
 using System;
 using System.Collections.Generic;
 using EventStore;
-using EventStore.Dispatcher;
+using StructureMap;
 using Tasks.Read;
 
 namespace Tasks.Write
 {
     public static class Storage
     {
-        private static IStoreEvents _store = Wireup
-                    .Init()
-                    .UsingSqlPersistence("conn")
-                    .UsingJsonSerialization()
-                    .UsingSynchronousDispatcher(new DelegateMessagePublisher(ReadStorage.HandleCommit))
-                    .Build();
+        private static IStoreEvents _store = ObjectFactory.GetInstance<IStoreEvents>();
 
         public static IStoreEvents Store
         {
