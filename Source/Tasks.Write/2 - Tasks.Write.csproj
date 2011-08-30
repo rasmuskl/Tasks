@@ -59,11 +59,13 @@
     <Compile Include="CommandHandlers\CreateNoteHandler.cs" />
     <Compile Include="CommandHandlers\CreateTaskHandler.cs" />
     <Compile Include="CommandHandlers\IHandle.cs" />
+    <Compile Include="CommandHandlers\MoveTaskToContext.cs" />
     <Compile Include="CommandHandlers\RegisterUserHandler.cs" />
     <Compile Include="Commands\CompleteTask.cs" />
     <Compile Include="Commands\CreateContext.cs" />
     <Compile Include="Commands\CreateNote.cs" />
     <Compile Include="Commands\CreateTask.cs" />
+    <Compile Include="Commands\MoveTaskToContext.cs" />
     <Compile Include="Commands\RegisterUser.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Note.cs" />

@@ -17,12 +17,22 @@ namespace Tasks.Write
             ApplyUncommitted(new TaskCompleted(utcCompleted, userId, _taskId));
         }
 
+        public void MoveToContext(Guid userId, Guid targetContextId)
+        {
+            ApplyUncommitted(new TaskMovedToContext(userId, _taskId, targetContextId));
+        }
+
         private void Apply(TaskCreated evt)
         {
             _taskId = evt.TaskId;
         }
 
         private void Apply(TaskCompleted evt)
+        {
+            
+        }
+
+        private void Apply(TaskMovedToContext evt)
         {
             
         }

@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskCompleted.cs" />
     <Compile Include="TaskCreated.cs" />
+    <Compile Include="TaskMovedToContext.cs" />
     <Compile Include="UserRegistered.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

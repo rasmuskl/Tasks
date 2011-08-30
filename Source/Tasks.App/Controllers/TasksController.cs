@@ -71,8 +71,9 @@ namespace Tasks.App.Controllers
         public ActionResult MoveTaskToContext(Guid targetContextId, Guid taskId, Guid fromContextId)
         {
             var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
-
             var context = ReadStorage.GetContextById(userId, fromContextId);
+
+            _executor.Execute(new MoveTaskToContext(taskId, userId, targetContextId));
 
             return RedirectToAction("Index", "Contexts", new { id = context.Name });
         }
