@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using EventStore;
+﻿using EventStore;
 using EventStore.Dispatcher;
 using StructureMap.Configuration.DSL;
 using Tasks.Read;

@@ -19,25 +19,6 @@ namespace Tasks.App.Controllers
             _executor = executor;
         }
 
-        public ActionResult Index()
-        {
-            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
-
-            List<TaskReadModel> tasks;
-            if(!ReadStorage.Tasks.TryGetValue(userId, out tasks))
-            {
-                tasks = new List<TaskReadModel>();
-            }
-
-            List<Tuple<string, string>> notes;
-            if(!ReadStorage.Notes.TryGetValue(userId, out notes))
-            {
-                notes = new List<Tuple<string, string>>();
-            }
-
-            return View(new TasksIndexModel { Tasks = tasks, Notes = notes });
-        }
-
         public ActionResult Create()
         {
             return View();
@@ -55,7 +36,7 @@ namespace Tasks.App.Controllers
 
             _executor.Execute(new CreateTask(model.Title, userId));
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Contexts");
         }
 
         public ActionResult CreateNote()
@@ -75,7 +56,7 @@ namespace Tasks.App.Controllers
 
             _executor.Execute(new CreateNote(model.Title, model.Description, userId));
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Contexts");
         }
 
         public ActionResult CompleteTask(Guid id)
@@ -84,7 +65,7 @@ namespace Tasks.App.Controllers
 
             _executor.Execute(new CompleteTask(id, userId));
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Contexts");
         }
     }
 }

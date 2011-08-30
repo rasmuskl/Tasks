@@ -1,11 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using Tasks.App.Models;
 using Tasks.Read;
+using Tasks.Read.Models;
+using Tasks.Write;
+using Tasks.Write.Commands;
 
 namespace Tasks.App.Controllers
 {
     public class ContextsController : Controller
     {
+        private readonly CommandExecutor _executor;
+
+        public ContextsController(CommandExecutor executor)
+        {
+            _executor = executor;
+        }
+
         public ActionResult MenuList()
         {
             Guid userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
@@ -14,12 +26,38 @@ namespace Tasks.App.Controllers
 
         public ActionResult Index(string id)
         {
-            throw new NotImplementedException();
+            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+            Guid contextId = ReadStorage.GetContextIdByName(userId, id);
+
+            IEnumerable<TaskReadModel> tasks = ReadStorage.GetTasksByContextId(userId, contextId);
+            IEnumerable<NoteReadModel> notes = ReadStorage.GetNotesByContextId(userId, contextId);
+
+            return View(new ContextIndexModel { Tasks = tasks, Notes = notes });
         }
 
         public ActionResult Create()
         {
-            throw new NotImplementedException();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(ContextCreateModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+
+            if(ReadStorage.UserHasContextNamed(userId, model.Name))
+            {
+                ModelState.AddModelError("Name", "You already have a context by this name.");
+            }
+
+            _executor.Execute(new CreateContext(Guid.NewGuid(), model.Name, userId));
+
+            return RedirectToAction("Index", new { id = model.Name });
         }
     }
 }

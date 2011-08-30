@@ -60,6 +60,7 @@
     <Compile Include="IEventHandler.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="Models\ContextReadModel.cs" />
+    <Compile Include="Models\NoteReadModel.cs" />
     <Compile Include="Models\TaskReadModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\QueryContextsByUserId.cs" />

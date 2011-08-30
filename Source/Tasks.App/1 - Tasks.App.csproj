@@ -81,11 +81,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContextCreateModel.cs" />
     <Compile Include="Models\NoteCreateModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\LogOnModel.cs" />
     <Compile Include="Models\TaskCreateModel.cs" />
-    <Compile Include="Models\TasksIndexModel.cs" />
+    <Compile Include="Models\ContextIndexModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +182,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Contexts\MenuList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Contexts\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Contexts\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

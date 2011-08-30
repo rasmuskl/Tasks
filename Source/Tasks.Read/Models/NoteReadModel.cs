@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 
 namespace Tasks.Read.Models
 {
-    public class TaskReadModel
+    public class NoteReadModel
     {
-        public Guid TaskId { get; set; } 
         public string Title { get; set; }
+        public string Description { get; set; }
         public Guid ContextId { get; set; }
     }
 }

@@ -11,14 +11,14 @@
     <ul>
     @foreach(var task in Model.Tasks)
     {
-        <li>@task.Title - @Html.ActionLink("Complete", "CompleteTask", new { id = task.TaskId })</li>
+        <li>@task.Title - @Html.ActionLink("Complete", "CompleteTask", "Tasks", new { id = task.TaskId }, null)</li>
     }
     </ul>
 
 </div>
 
 
-@Html.ActionLink("Create task", "Create")
+@Html.ActionLink("Create task", "Create", "Tasks")
 
 <h2>Notes</h2>
 
@@ -34,4 +34,4 @@
 </div>
 
 
-@Html.ActionLink("Create note", "CreateNote")
+@Html.ActionLink("Create note", "CreateNote", "Tasks")

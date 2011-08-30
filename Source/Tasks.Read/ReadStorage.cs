@@ -4,6 +4,7 @@ using EventStore;
 using StructureMap;
 using Tasks.Read.Models;
 using Tasks.Read.Queries;
+using System.Linq;
 
 namespace Tasks.Read
 {
@@ -13,7 +14,7 @@ namespace Tasks.Read
         {
             Contexts = new Dictionary<Guid, List<ContextReadModel>>();
             Tasks = new Dictionary<Guid, List<TaskReadModel>>();
-            Notes = new Dictionary<Guid, List<Tuple<string, string>>>();
+            Notes = new Dictionary<Guid, List<NoteReadModel>>();
             RegisteredEmails = new Dictionary<string, Guid>(StringComparer.InvariantCultureIgnoreCase);
             PasswordHashes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
         }
@@ -25,7 +26,7 @@ namespace Tasks.Read
 
         internal static Dictionary<Guid, List<ContextReadModel>> Contexts { get; set; }
         public static Dictionary<Guid, List<TaskReadModel>> Tasks { get; private set; }
-        public static Dictionary<Guid, List<Tuple<string, string>>> Notes { get; private set; }
+        public static Dictionary<Guid, List<NoteReadModel>> Notes { get; private set; }
         public static Dictionary<string, Guid> RegisteredEmails { get; private set; }
         public static Dictionary<string, string> PasswordHashes { get; private set; }
 
@@ -37,6 +38,44 @@ namespace Tasks.Read
         public static List<ContextReadModel> GetContextsByUserId(Guid userId)
         {
             return new QueryContextsByUserId(userId).Query();
+        }
+
+        public static bool UserHasContextNamed(Guid userId, string name)
+        {
+            if (!Contexts.ContainsKey(userId))
+                return false;
+
+            return Contexts[userId].Any(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        public static Guid GetContextIdByName(Guid userId, string name)
+        {
+            if (!Contexts.ContainsKey(userId))
+                return Guid.Empty;
+
+            var context = Contexts[userId].FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
+
+            if (context == null)
+                return Guid.Empty;
+
+            return context.ContextId;
+
+        }
+
+        public static IEnumerable<TaskReadModel> GetTasksByContextId(Guid userId, Guid contextId)
+        {
+            if (!Tasks.ContainsKey(userId))
+                return new TaskReadModel[] {};
+
+            return Tasks[userId].Where(x => x.ContextId == contextId);
+        }
+
+        public static IEnumerable<NoteReadModel> GetNotesByContextId(Guid userId, Guid contextId)
+        {
+            if (!Notes.ContainsKey(userId))
+                return new NoteReadModel[] { };
+
+            return Notes[userId].Where(x => x.ContextId == contextId);
         }
     }
 }

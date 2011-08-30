@@ -6,7 +6,7 @@ namespace Tasks.App.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Tasks");
+            return RedirectToAction("Index", "Contexts");
         }
     }
 }
