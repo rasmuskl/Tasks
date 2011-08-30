@@ -67,5 +67,14 @@ namespace Tasks.App.Controllers
 
             return RedirectToAction("Index", "Contexts");
         }
+
+        public ActionResult MoveTaskToContext(Guid targetContextId, Guid taskId, Guid fromContextId)
+        {
+            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+
+            var context = ReadStorage.GetContextById(userId, fromContextId);
+
+            return RedirectToAction("Index", "Contexts", new { id = context.Name });
+        }
     }
 }

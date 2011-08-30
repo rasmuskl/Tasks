@@ -11,7 +11,13 @@
     <ul>
     @foreach(var task in Model.Tasks)
     {
-        <li>@task.Title - @Html.ActionLink("Complete", "CompleteTask", "Tasks", new { id = task.TaskId }, null)</li>
+        <li>@Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - @task.Title
+        
+        @foreach(var context in Model.OtherContexts)
+        {
+            <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
+        }
+        </li>
     }
     </ul>
 

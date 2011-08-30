@@ -42,18 +42,12 @@ namespace Tasks.Read
 
         public static bool UserHasContextNamed(Guid userId, string name)
         {
-            if (!Contexts.ContainsKey(userId))
-                return false;
-
-            return Contexts[userId].Any(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
+            return GetContextsByUserId(userId).Any(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public static Guid GetContextIdByName(Guid userId, string name)
         {
-            if (!Contexts.ContainsKey(userId))
-                return Guid.Empty;
-
-            var context = Contexts[userId].FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
+            var context = GetContextsByUserId(userId).FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
 
             if (context == null)
                 return Guid.Empty;
@@ -65,7 +59,7 @@ namespace Tasks.Read
         public static IEnumerable<TaskReadModel> GetTasksByContextId(Guid userId, Guid contextId)
         {
             if (!Tasks.ContainsKey(userId))
-                return new TaskReadModel[] {};
+                return new TaskReadModel[] { };
 
             return Tasks[userId].Where(x => x.ContextId == contextId);
         }
@@ -76,6 +70,16 @@ namespace Tasks.Read
                 return new NoteReadModel[] { };
 
             return Notes[userId].Where(x => x.ContextId == contextId);
+        }
+
+        public static IEnumerable<ContextReadModel> GetContextsExceptContextId(Guid userId, Guid contextId)
+        {
+            return GetContextsByUserId(userId).Where(x => x.ContextId != contextId);
+        }
+
+        public static ContextReadModel GetContextById(Guid userId, Guid contextId)
+        {
+            return GetContextsByUserId(userId).FirstOrDefault(x => x.ContextId == contextId);
         }
     }
 }
