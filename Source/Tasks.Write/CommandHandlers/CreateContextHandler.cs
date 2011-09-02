@@ -4,7 +4,7 @@ using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
-    public class CreateContextHandler : IHandle<CreateContext>
+    public class CreateContextHandler : ICommandHandler<CreateContext>
     {
         readonly IStoreEvents _eventStore;
 

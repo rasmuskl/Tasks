@@ -1,6 +1,6 @@
 namespace Tasks.Write.CommandHandlers
 {
-    public interface IHandle<T>
+    public interface ICommandHandler<T>
     {
         void Handle(T command);
     }

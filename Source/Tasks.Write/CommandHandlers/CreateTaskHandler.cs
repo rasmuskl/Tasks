@@ -4,7 +4,7 @@ using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
-    public class CreateTaskHandler : IHandle<CreateTask>
+    public class CreateTaskHandler : ICommandHandler<CreateTask>
     {
         public void Handle(CreateTask command)
         {

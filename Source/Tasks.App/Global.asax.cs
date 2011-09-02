@@ -25,10 +25,10 @@ namespace Tasks.App
                 x.Scan(scanner =>
                 {
                     scanner.TheCallingAssembly();
-                    scanner.AssemblyContainingType(typeof(IHandle<>));
+                    scanner.AssemblyContainingType(typeof(ICommandHandler<>));
                     scanner.AssemblyContainingType(typeof(IEventHandler<>));
                     
-                    scanner.ConnectImplementationsToTypesClosing(typeof (IHandle<>));
+                    scanner.ConnectImplementationsToTypesClosing(typeof (ICommandHandler<>));
                     scanner.ConnectImplementationsToTypesClosing(typeof (IEventHandler<>));
                     scanner.ConnectImplementationsToTypesClosing(typeof (IQueryHandler<,>));
 

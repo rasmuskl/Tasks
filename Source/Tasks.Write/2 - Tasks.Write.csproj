@@ -58,7 +58,7 @@
     <Compile Include="CommandHandlers\CreateContextHandler.cs" />
     <Compile Include="CommandHandlers\CreateNoteHandler.cs" />
     <Compile Include="CommandHandlers\CreateTaskHandler.cs" />
-    <Compile Include="CommandHandlers\IHandle.cs" />
+    <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="CommandHandlers\MoveTaskToContext.cs" />
     <Compile Include="CommandHandlers\RegisterUserHandler.cs" />
     <Compile Include="Commands\CompleteTask.cs" />

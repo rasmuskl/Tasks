@@ -4,7 +4,7 @@ using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
-    public class MoveTaskToContextHandler : IHandle<MoveTaskToContext>
+    public class MoveTaskToContextHandler : ICommandHandler<MoveTaskToContext>
     {
         public void Handle(MoveTaskToContext command)
         {

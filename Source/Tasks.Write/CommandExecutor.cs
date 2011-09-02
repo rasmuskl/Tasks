@@ -14,7 +14,7 @@ namespace Tasks.Write
 
         public void Execute<T>(T command)
         {
-            var handler = _container.GetInstance<IHandle<T>>();
+            var handler = _container.GetInstance<ICommandHandler<T>>();
             handler.Handle(command);
         }
     }

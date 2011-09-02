@@ -4,7 +4,7 @@ using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
-    public class CreateNoteHandler : IHandle<CreateNote>
+    public class CreateNoteHandler : ICommandHandler<CreateNote>
     {
         private readonly IStoreEvents _eventStore;
 

@@ -4,7 +4,7 @@ using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
-    public class RegisterUserHandler : IHandle<RegisterUser>
+    public class RegisterUserHandler : ICommandHandler<RegisterUser>
     {
         public void Handle(RegisterUser command)
         {

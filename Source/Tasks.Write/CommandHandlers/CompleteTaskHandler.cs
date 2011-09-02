@@ -4,7 +4,7 @@ using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
-    public class CompleteTaskHandler : IHandle<CompleteTask>
+    public class CompleteTaskHandler : ICommandHandler<CompleteTask>
     {
         public void Handle(CompleteTask command)
         {
