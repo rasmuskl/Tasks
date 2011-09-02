@@ -30,6 +30,7 @@ namespace Tasks.App
                     
                     scanner.ConnectImplementationsToTypesClosing(typeof (IHandle<>));
                     scanner.ConnectImplementationsToTypesClosing(typeof (IEventHandler<>));
+                    scanner.ConnectImplementationsToTypesClosing(typeof (IQueryHandler<,>));
 
                     scanner.LookForRegistries();
 

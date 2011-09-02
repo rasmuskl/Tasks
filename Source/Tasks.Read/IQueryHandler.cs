@@ -1,7 +1,7 @@
 ﻿namespace Tasks.Read
 {
-    public interface IQueryHandler<in T, out R> where T : IQuery<R>
+    public interface IQueryHandler<in TQ, out TR> where TQ : IQuery<TR>
     {
-        R Handle(T query);
+        TR Handle(TQ query);
     }
 }

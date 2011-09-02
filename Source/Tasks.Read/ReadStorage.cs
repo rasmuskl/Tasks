@@ -35,19 +35,30 @@ namespace Tasks.Read
             return RegisteredEmails[email];
         }
 
-        public static List<ContextReadModel> GetContextsByUserId(Guid userId)
+        public static T Query<T>(IQuery<T> query)
         {
-            return new QueryContextsByUserId(userId).Query();
+            var type = query.GetType();
+            var returnType = typeof (T);
+
+            var handlerType = typeof (IQueryHandler<,>);
+            var genericHandlerType = handlerType.MakeGenericType(type, returnType);
+
+            var handler = ObjectFactory.GetInstance(genericHandlerType);
+
+            var handleMethod = handler.GetType().GetMethod("Handle", new [] { type });
+            var result = handleMethod.Invoke(handler, new[] {query});
+
+            return (T)result;
         }
 
         public static bool UserHasContextNamed(Guid userId, string name)
         {
-            return GetContextsByUserId(userId).Any(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
+            return Query(new QueryContextsByUserId(userId)).Any(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public static Guid GetContextIdByName(Guid userId, string name)
         {
-            var context = GetContextsByUserId(userId).FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
+            var context = Query(new QueryContextsByUserId(userId)).FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
 
             if (context == null)
                 return Guid.Empty;
@@ -74,12 +85,12 @@ namespace Tasks.Read
 
         public static IEnumerable<ContextReadModel> GetContextsExceptContextId(Guid userId, Guid contextId)
         {
-            return GetContextsByUserId(userId).Where(x => x.ContextId != contextId);
+            return Query(new QueryContextsByUserId(userId)).Where(x => x.ContextId != contextId);
         }
 
         public static ContextReadModel GetContextById(Guid userId, Guid contextId)
         {
-            return GetContextsByUserId(userId).FirstOrDefault(x => x.ContextId == contextId);
+            return Query(new QueryContextsByUserId(userId)).FirstOrDefault(x => x.ContextId == contextId);
         }
     }
 }

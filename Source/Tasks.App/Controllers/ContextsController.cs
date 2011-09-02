@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Tasks.App.Models;
 using Tasks.Read;
 using Tasks.Read.Models;
+using Tasks.Read.Queries;
 using Tasks.Write;
 using Tasks.Write.Commands;
 
@@ -21,7 +22,7 @@ namespace Tasks.App.Controllers
         public ActionResult MenuList()
         {
             Guid userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
-            return View(ReadStorage.GetContextsByUserId(userId));
+            return View(ReadStorage.Query(new QueryContextsByUserId(userId)));
         }
 
         public ActionResult Index(string id)
