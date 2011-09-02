@@ -60,6 +60,7 @@
     <Compile Include="EventHub.cs" />
     <Compile Include="IEventHandler.cs" />
     <Compile Include="IQuery.cs" />
+    <Compile Include="IQueryHandler.cs" />
     <Compile Include="Models\ContextReadModel.cs" />
     <Compile Include="Models\NoteReadModel.cs" />
     <Compile Include="Models\TaskReadModel.cs" />
