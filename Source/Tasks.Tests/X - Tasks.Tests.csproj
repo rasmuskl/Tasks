@@ -79,6 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Read\ReadContext.cs" />
+    <Compile Include="Read\when_querying_for_user.cs" />
     <Compile Include="StoryQ\AbstractStoryQFixture.cs" />
     <Compile Include="StoryQ\SampleFixture.cs" />
     <Compile Include="StoryQ\StoryQHelper.cs" />
@@ -94,11 +96,16 @@
       <Project>{395EB0A1-8F06-4544-A58D-308FB7B8C028}</Project>
       <Name>3 - Tasks.Events</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tasks.Read\2 - Tasks.Read.csproj">
+      <Project>{FEEE8FD3-3F8D-4BE2-9E78-87D9C761657E}</Project>
+      <Name>2 - Tasks.Read</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tasks.Write\2 - Tasks.Write.csproj">
       <Project>{E5862D92-EE5A-493E-A9BD-B8993FAF2794}</Project>
       <Name>2 - Tasks.Write</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)..\Tools\nuget install $(ProjectDir)packages.config -o $(SolutionDir)Packages</PreBuildEvent>

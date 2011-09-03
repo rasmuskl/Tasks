@@ -21,13 +21,13 @@ namespace Tasks.App.Controllers
 
         public ActionResult MenuList()
         {
-            Guid userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+            Guid userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
             return View(ReadStorage.Query(new QueryContextsByUserId(userId)));
         }
 
         public ActionResult Index(string id)
         {
-            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+            var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
             Guid contextId = ReadStorage.GetContextIdByName(userId, id);
 
             IEnumerable<TaskReadModel> tasks = ReadStorage.GetTasksByContextId(userId, contextId);
@@ -50,7 +50,7 @@ namespace Tasks.App.Controllers
                 return View(model);
             }
 
-            var userId = ReadStorage.GetUserIdByEmail(User.Identity.Name);
+            var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
 
             if(ReadStorage.UserHasContextNamed(userId, model.Name))
             {

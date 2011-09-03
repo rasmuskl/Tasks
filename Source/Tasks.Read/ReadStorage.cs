@@ -30,11 +30,6 @@ namespace Tasks.Read
         public static Dictionary<string, Guid> RegisteredEmails { get; private set; }
         public static Dictionary<string, string> PasswordHashes { get; private set; }
 
-        public static Guid GetUserIdByEmail(string email)
-        {
-            return RegisteredEmails[email];
-        }
-
         public static T Query<T>(IQuery<T> query)
         {
             var type = query.GetType();
