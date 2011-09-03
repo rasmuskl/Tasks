@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using EventStore;
-using EventStore.Dispatcher;
 using Machine.Specifications;
-using StructureMap;
 using Tasks.Events;
 using System.Linq;
-using Tasks.Write.CommandHandlers;
 using Tasks.Write.Commands;
-using Tasks.Write.Config;
 
 namespace Tasks.Tests.Write
 {

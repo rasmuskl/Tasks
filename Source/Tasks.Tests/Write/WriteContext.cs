@@ -11,11 +11,12 @@ namespace Tasks.Tests.Write
 {
     public class WriteContext
     {
-        protected static List<object> _eventsPublished = new List<object>();
+        protected static List<object> _eventsPublished;
         protected static CommandExecutor _executor;
 
         Establish writeContext = () =>
             {
+                _eventsPublished = new List<object>();
                 InitializeWriteContext();
             };
 
