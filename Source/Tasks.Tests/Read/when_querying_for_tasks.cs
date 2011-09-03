@@ -12,7 +12,7 @@ namespace Tasks.Tests.Read
 
         Establish context = () =>
             {
-                var userRegistered = WithEvent(new UserRegistered(Guid.NewGuid(), "test@test.dk", "1234"));
+                var userRegistered = WithEvent(new UserRegistered(Guid.NewGuid(), "task-test@test.dk", "1234"));
 
                 _taskCreated = new TaskCreated("Task 1", Guid.NewGuid(), userRegistered.UserId, DateTime.Now);
             };

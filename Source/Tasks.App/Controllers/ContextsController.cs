@@ -32,7 +32,7 @@ namespace Tasks.App.Controllers
             Guid contextId = ReadStorage.Query(new QueryContextIdByName(userId, id));
 
             IEnumerable<TaskReadModel> tasks = ReadStorage.Query(new QueryTasksByContextId(userId, contextId));
-            IEnumerable<NoteReadModel> notes = ReadStorage.GetNotesByContextId(userId, contextId);
+            IEnumerable<NoteReadModel> notes = ReadStorage.Query(new QueryNotesByContextId(userId, contextId));
             IEnumerable<ContextReadModel> otherContexts = ReadStorage.Query(new QueryContextsExceptContext(userId, contextId));
 
             return View(new ContextIndexModel { Tasks = tasks, Notes = notes, OtherContexts = otherContexts });

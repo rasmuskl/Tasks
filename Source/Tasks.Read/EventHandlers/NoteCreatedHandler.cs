@@ -14,7 +14,7 @@ namespace Tasks.Read.EventHandlers
                 ReadStorage.Notes[evt.UserId] = new List<NoteReadModel>();
             }
 
-            ReadStorage.Notes[evt.UserId].Add(new NoteReadModel { Title = evt.Title, Description = evt.Description });
+            ReadStorage.Notes[evt.UserId].Add(new NoteReadModel { NoteId = evt.NoteId, Title = evt.Title, Description = evt.Description });
         }
     }
 }

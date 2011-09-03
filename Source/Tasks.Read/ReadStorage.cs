@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using EventStore;
 using StructureMap;
 using Tasks.Read.Models;
-using System.Linq;
-using Tasks.Read.Queries;
 
 namespace Tasks.Read
 {
@@ -44,14 +42,6 @@ namespace Tasks.Read
             var result = handleMethod.Invoke(handler, new[] {query});
 
             return (T)result;
-        }
-
-        public static IEnumerable<NoteReadModel> GetNotesByContextId(Guid userId, Guid contextId)
-        {
-            if (!Notes.ContainsKey(userId))
-                return new NoteReadModel[] { };
-
-            return Notes[userId].Where(x => x.ContextId == contextId);
         }
     }
 }
