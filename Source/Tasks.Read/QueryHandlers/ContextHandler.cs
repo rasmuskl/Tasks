@@ -9,7 +9,9 @@ namespace Tasks.Read.QueryHandlers
     public class ContextHandler : 
         IQueryHandler<QueryContextsByUserId, List<ContextReadModel>>,
         IQueryHandler<QueryUserHasContextNamed, bool>,
-        IQueryHandler<QueryContextById, ContextReadModel>
+        IQueryHandler<QueryContextById, ContextReadModel>,
+        IQueryHandler<QueryContextIdByName, Guid>,
+        IQueryHandler<QueryContextsExceptContext, IEnumerable<ContextReadModel>>
     {
         public List<ContextReadModel> Handle(QueryContextsByUserId query)
         {
@@ -36,6 +38,22 @@ namespace Tasks.Read.QueryHandlers
         public ContextReadModel Handle(QueryContextById query)
         {
             return ReadStorage.Query(new QueryContextsByUserId(query.UserId)).FirstOrDefault(x => x.ContextId == query.ContextId);
+        }
+
+        public Guid Handle(QueryContextIdByName query)
+        {
+            var context = ReadStorage.Query(new QueryContextsByUserId(query.UserId))
+                .FirstOrDefault(x => string.Equals(x.Name, query.ContextName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (context == null)
+                return Guid.Empty;
+
+            return context.ContextId;
+        }
+
+        public IEnumerable<ContextReadModel> Handle(QueryContextsExceptContext query)
+        {
+            return ReadStorage.Query(new QueryContextsByUserId(query.UserId)).Where(x => x.ContextId != query.ContextId);
         }
     }
 }

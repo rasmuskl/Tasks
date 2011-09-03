@@ -29,7 +29,7 @@ namespace Tasks.App.Controllers
         public ActionResult Index(string id)
         {
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
-            Guid contextId = ReadStorage.GetContextIdByName(userId, id);
+            Guid contextId = ReadStorage.Query(new QueryContextIdByName(userId, id));
 
             IEnumerable<TaskReadModel> tasks = ReadStorage.GetTasksByContextId(userId, contextId);
             IEnumerable<NoteReadModel> notes = ReadStorage.GetNotesByContextId(userId, contextId);

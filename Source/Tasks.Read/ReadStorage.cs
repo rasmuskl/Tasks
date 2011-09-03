@@ -46,17 +46,6 @@ namespace Tasks.Read
             return (T)result;
         }
 
-        public static Guid GetContextIdByName(Guid userId, string name)
-        {
-            var context = Query(new QueryContextsByUserId(userId)).FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
-
-            if (context == null)
-                return Guid.Empty;
-
-            return context.ContextId;
-
-        }
-
         public static IEnumerable<TaskReadModel> GetTasksByContextId(Guid userId, Guid contextId)
         {
             if (!Tasks.ContainsKey(userId))
@@ -75,7 +64,7 @@ namespace Tasks.Read
 
         public static IEnumerable<ContextReadModel> GetContextsExceptContextId(Guid userId, Guid contextId)
         {
-            return Query(new QueryContextsByUserId(userId)).Where(x => x.ContextId != contextId);
+            return Query(new QueryContextsExceptContext(userId, contextId));
         }
     }
 }
