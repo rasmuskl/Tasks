@@ -27,15 +27,15 @@ namespace Tasks.Read
         public static Dictionary<string, Guid> RegisteredEmails { get; private set; }
         public static Dictionary<string, string> PasswordHashes { get; private set; }
 
-        public static T Query<T>(IQuery<T> query)
+        public static TReturn Query<TReturn>(IQuery<TReturn> query)
         {
             var type = query.GetType();
-            var returnType = typeof (T);
+            var returnType = typeof (TReturn);
 
-            var handlerType = typeof (IQueryHandler<,>);
-            var genericHandlerType = handlerType.MakeGenericType(type, returnType);
+            var openHandlerType = typeof (IQueryHandler<,>);
+            var closedHandlerType = openHandlerType.MakeGenericType(type, returnType);
 
-            var handler = ObjectFactory.GetInstance(genericHandlerType);
+            var handler = ObjectFactory.GetInstance(closedHandlerType);
 
             try
             {
@@ -44,7 +44,7 @@ namespace Tasks.Read
                 var handleMethod = handler.GetType().GetMethod("Handle", new[] { type });
                 var result = handleMethod.Invoke(handler, new[] { query });
 
-                return (T)result;
+                return (TReturn)result;
             }
             finally
             {
