@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using EventStore;
 using StructureMap;
 using Tasks.Read.Models;
-using Tasks.Read.Queries;
 using System.Linq;
 
 namespace Tasks.Read
@@ -60,11 +59,6 @@ namespace Tasks.Read
                 return new NoteReadModel[] { };
 
             return Notes[userId].Where(x => x.ContextId == contextId);
-        }
-
-        public static IEnumerable<ContextReadModel> GetContextsExceptContextId(Guid userId, Guid contextId)
-        {
-            return Query(new QueryContextsExceptContext(userId, contextId));
         }
     }
 }

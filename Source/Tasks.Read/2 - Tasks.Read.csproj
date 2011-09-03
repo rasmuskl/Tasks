@@ -70,9 +70,11 @@
     <Compile Include="Queries\QueryContextIdByName.cs" />
     <Compile Include="Queries\QueryContextsByUserId.cs" />
     <Compile Include="Queries\QueryContextsExceptContext.cs" />
+    <Compile Include="Queries\QueryTasksByContextId.cs" />
     <Compile Include="Queries\QueryUserHasContextNamed.cs" />
     <Compile Include="Queries\QueryUserIdByEmail.cs" />
     <Compile Include="QueryHandlers\ContextHandler.cs" />
+    <Compile Include="QueryHandlers\TaskHandler.cs" />
     <Compile Include="QueryHandlers\UserIdByEmailHandler.cs" />
     <Compile Include="ReadStorage.cs" />
   </ItemGroup>
