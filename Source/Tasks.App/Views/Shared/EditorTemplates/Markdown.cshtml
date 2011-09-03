@@ -1,0 +1,19 @@
+﻿@model string
+           
+<div>
+    <div id="wmd-preview" class="wmd-panel wmd-preview">
+    </div>    
+        
+    <div class="wmd-panel">
+        <div id="wmd-button-bar"></div>
+        @Html.TextArea(string.Empty, Model, new { @class = "wmd-input", id = "wmd-input" })
+    </div>
+</div>
+
+<script type="text/javascript">
+    (function () {
+        var converter = Markdown.getSanitizingConverter();
+        var editor = new Markdown.Editor(converter);
+        editor.run();
+    })();
+</script>

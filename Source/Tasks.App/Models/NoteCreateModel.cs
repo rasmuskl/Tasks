@@ -6,7 +6,8 @@ namespace Tasks.App.Models
     {
         [Required]
         public string Title { get; set; }
-
+        
+        [UIHint("Markdown")]
         public string Description { get; set; }
     }
 }

@@ -7,6 +7,7 @@ namespace Tasks.App.Models
         [ScaffoldColumn(false)]
         public string Title { get; set; }
 
+        [UIHint("Markdown")]
         public string Description { get; set; }
     }
 }
