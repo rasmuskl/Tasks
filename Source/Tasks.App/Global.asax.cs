@@ -28,7 +28,6 @@ namespace Tasks.App
                     scanner.AssemblyContainingType(typeof(ICommandHandler<>));
                     scanner.AssemblyContainingType(typeof(IEventHandler<>));
                     
-                    scanner.ConnectImplementationsToTypesClosing(typeof (ICommandHandler<>));
                     scanner.ConnectImplementationsToTypesClosing(typeof (IEventHandler<>));
                     scanner.ConnectImplementationsToTypesClosing(typeof (IQueryHandler<,>));
 
