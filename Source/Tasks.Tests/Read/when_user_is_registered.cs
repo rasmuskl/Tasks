@@ -15,7 +15,7 @@ namespace Tasks.Tests.Read
                 _userRegistered = new UserRegistered(Guid.NewGuid(), "test@test.dk", "1234");
             };
 
-        Because of = () => WithEvent(_userRegistered);
+        Because of = () => ProcessedEvent(_userRegistered);
 
         It should_exist_when_querying_by_email = () => ReadStorage.Query(new QueryUserIdByEmail("test@test.dk")).ShouldEqual(_userRegistered.UserId);
         

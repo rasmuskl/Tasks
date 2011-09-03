@@ -12,12 +12,12 @@ namespace Tasks.Tests.Read
 
         Establish context = () =>
             {
-                var userRegistered = WithEvent(new UserRegistered(Guid.NewGuid(), "note-test@test.dk", "1234"));
+                var userRegistered = ProcessedEvent(new UserRegistered(Guid.NewGuid(), "note-test@test.dk", "1234"));
 
                 _noteCreated = new NoteCreated("Task 1", "Note desc", Guid.NewGuid(), userRegistered.UserId, DateTime.Now);
             };
 
-        Because of = () => WithEvent(_noteCreated);
+        Because of = () => ProcessedEvent(_noteCreated);
 
         It should_find_note_in_general_context = () =>
             ReadStorage.Query(new QueryNotesByContextId(_noteCreated.UserId, Guid.Empty))

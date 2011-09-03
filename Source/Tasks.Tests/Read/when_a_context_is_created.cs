@@ -13,12 +13,12 @@ namespace Tasks.Tests.Read
 
         Establish context = () =>
             {
-                var userRegistered = WithEvent(new UserRegistered(Guid.NewGuid(), "context-test@test.dk", "1234"));
+                var userRegistered = ProcessedEvent(new UserRegistered(Guid.NewGuid(), "context-test@test.dk", "1234"));
 
                 _contextCreated = new ContextCreated(Guid.NewGuid(), "Context 1", userRegistered.UserId, DateTime.Now);
             };
 
-        Because of = () => WithEvent(_contextCreated);
+        Because of = () => ProcessedEvent(_contextCreated);
 
         It should_find_context_by_user_id = () => 
             ReadStorage.Query(new QueryContextsByUserId(_contextCreated.UserId))

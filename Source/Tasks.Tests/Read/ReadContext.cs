@@ -30,7 +30,7 @@ namespace Tasks.Tests.Read
                 });
         }
 
-        protected static T WithEvent<T>(T evt)
+        protected static T ProcessedEvent<T>(T evt)
         {
             var eventMessages = new List<EventMessage>
                 {
