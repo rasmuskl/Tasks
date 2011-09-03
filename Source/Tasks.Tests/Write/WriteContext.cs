@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EventStore;
 using EventStore.Dispatcher;
@@ -19,6 +20,19 @@ namespace Tasks.Tests.Write
                 _eventsPublished = new List<object>();
                 InitializeWriteContext();
             };
+
+        protected static void AddToHistory(Guid entityId, object evt)
+        {
+            var storeEvents = ObjectFactory.GetInstance<IStoreEvents>();
+
+            using(var stream = storeEvents.OpenStream(entityId, 0, Int32.MaxValue))
+            {
+                stream.Add(new EventMessage { Body = evt });
+                stream.CommitChanges(Guid.NewGuid());
+            }
+
+            _eventsPublished.Clear();
+        }
 
         private static void InitializeWriteContext()
         {
@@ -41,8 +55,7 @@ namespace Tasks.Tests.Write
 
         private static IStoreEvents InitializeEventStore()
         {
-            return Wireup
-                .Init()
+            return Wireup.Init()
                 .UsingInMemoryPersistence()
                 .UsingSynchronousDispatcher(new DelegateMessagePublisher(x => _eventsPublished.AddRange(x.Events.Select(e => e.Body).ToList())))
                 .Build();

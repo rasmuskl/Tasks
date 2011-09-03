@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AggregateRoot.cs" />
     <Compile Include="CommandExecutor.cs" />
+    <Compile Include="CommandHandlers\ChangeNoteDescriptionHandler.cs" />
     <Compile Include="CommandHandlers\CompleteTaskHandler.cs" />
     <Compile Include="CommandHandlers\CreateContextHandler.cs" />
     <Compile Include="CommandHandlers\CreateNoteHandler.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="CommandHandlers\MoveTaskToContext.cs" />
     <Compile Include="CommandHandlers\RegisterUserHandler.cs" />
+    <Compile Include="Commands\ChangeNoteDescription.cs" />
     <Compile Include="Commands\CompleteTask.cs" />
     <Compile Include="Commands\CreateContext.cs" />
     <Compile Include="Commands\CreateNote.cs" />

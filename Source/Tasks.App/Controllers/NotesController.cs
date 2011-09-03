@@ -50,5 +50,18 @@ namespace Tasks.App.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult EditDescription(Guid id, NoteEditDescriptionModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+
+
+            return RedirectToAction("Index", "Contexts");
+        }
     }
 }

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ContextCreated.cs" />
     <Compile Include="NoteCreated.cs" />
+    <Compile Include="NoteDescriptionChanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskCompleted.cs" />
     <Compile Include="TaskCreated.cs" />
