@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using EventStore;
-using EventStore.Dispatcher;
 using Machine.Specifications;
 using StructureMap;
 using Tasks.Read;
@@ -11,8 +10,6 @@ namespace Tasks.Tests.Read
 {
     public class ReadContext
     {
-        protected static List<object> _eventsPublished = new List<object>();
-
         Establish readContext = () =>
             {
                 InitializeWriteContext();

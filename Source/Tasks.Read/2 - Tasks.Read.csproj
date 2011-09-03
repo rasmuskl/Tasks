@@ -57,6 +57,7 @@
     <Compile Include="Config\ReadRegistry.cs" />
     <Compile Include="EventHandlers\ContextCreatedHandler.cs" />
     <Compile Include="EventHandlers\NoteCreatedHandler.cs" />
+    <Compile Include="EventHandlers\NoteDescriptionChangedHandler.cs" />
     <Compile Include="EventHandlers\TaskCompletedHandler.cs" />
     <Compile Include="EventHandlers\TaskCreatedHandler.cs" />
     <Compile Include="EventHandlers\TaskMovedToContextHandler.cs" />
