@@ -6,7 +6,7 @@ using Tasks.Read.Queries;
 
 namespace Tasks.Tests.Read
 {
-    public class when_querying_for_tasks : ReadContext
+    public class when_a_task_is_created : ReadContext
     {
         static TaskCreated _taskCreated;
 

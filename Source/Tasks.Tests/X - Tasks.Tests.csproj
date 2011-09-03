@@ -79,11 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Read\when_querying_for_notes.cs" />
+    <Compile Include="Read\when_a_note_is_created.cs" />
     <Compile Include="Read\ReadContext.cs" />
-    <Compile Include="Read\when_querying_for_contexts.cs" />
-    <Compile Include="Read\when_querying_for_tasks.cs" />
-    <Compile Include="Read\when_querying_for_user.cs" />
+    <Compile Include="Read\when_a_context_is_created.cs" />
+    <Compile Include="Read\when_a_task_is_created.cs" />
+    <Compile Include="Read\when_user_is_registered.cs" />
     <Compile Include="StoryQ\AbstractStoryQFixture.cs" />
     <Compile Include="StoryQ\SampleFixture.cs" />
     <Compile Include="StoryQ\StoryQHelper.cs" />

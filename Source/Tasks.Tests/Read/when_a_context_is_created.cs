@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Tasks.Tests.Read
 {
-    public class when_querying_for_contexts : ReadContext
+    public class when_a_context_is_created : ReadContext
     {
         static ContextCreated _contextCreated;
 
