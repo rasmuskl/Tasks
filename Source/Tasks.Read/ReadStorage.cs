@@ -4,6 +4,7 @@ using EventStore;
 using StructureMap;
 using Tasks.Read.Models;
 using System.Linq;
+using Tasks.Read.Queries;
 
 namespace Tasks.Read
 {
@@ -43,14 +44,6 @@ namespace Tasks.Read
             var result = handleMethod.Invoke(handler, new[] {query});
 
             return (T)result;
-        }
-
-        public static IEnumerable<TaskReadModel> GetTasksByContextId(Guid userId, Guid contextId)
-        {
-            if (!Tasks.ContainsKey(userId))
-                return new TaskReadModel[] { };
-
-            return Tasks[userId].Where(x => x.ContextId == contextId);
         }
 
         public static IEnumerable<NoteReadModel> GetNotesByContextId(Guid userId, Guid contextId)

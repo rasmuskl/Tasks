@@ -31,7 +31,7 @@ namespace Tasks.App.Controllers
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
             Guid contextId = ReadStorage.Query(new QueryContextIdByName(userId, id));
 
-            IEnumerable<TaskReadModel> tasks = ReadStorage.GetTasksByContextId(userId, contextId);
+            IEnumerable<TaskReadModel> tasks = ReadStorage.Query(new QueryTasksByContextId(userId, contextId));
             IEnumerable<NoteReadModel> notes = ReadStorage.GetNotesByContextId(userId, contextId);
             IEnumerable<ContextReadModel> otherContexts = ReadStorage.Query(new QueryContextsExceptContext(userId, contextId));
 
