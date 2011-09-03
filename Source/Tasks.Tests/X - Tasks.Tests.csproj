@@ -58,15 +58,6 @@
     <Reference Include="pnunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="StoryQ">
-      <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.dll</HintPath>
-    </Reference>
-    <Reference Include="StoryQ.pt-BR">
-      <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.pt-BR.dll</HintPath>
-    </Reference>
-    <Reference Include="StoryQ.sr-SP">
-      <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.sr-SP.dll</HintPath>
-    </Reference>
     <Reference Include="StructureMap, Version=2.6.2.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -85,9 +76,6 @@
     <Compile Include="Read\when_a_context_is_created.cs" />
     <Compile Include="Read\when_a_task_is_created.cs" />
     <Compile Include="Read\when_user_is_registered.cs" />
-    <Compile Include="StoryQ\AbstractStoryQFixture.cs" />
-    <Compile Include="StoryQ\SampleFixture.cs" />
-    <Compile Include="StoryQ\StoryQHelper.cs" />
     <Compile Include="Write\when_create_context_is_processed.cs" />
     <Compile Include="Write\when_create_note_is_processed.cs" />
     <Compile Include="Write\when_note_description_is_changed.cs" />

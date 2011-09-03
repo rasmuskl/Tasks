@@ -86,6 +86,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContextCreateModel.cs" />
+    <Compile Include="Models\HtmlExtensions.cs" />
     <Compile Include="Models\NoteCreateModel.cs" />
     <Compile Include="Models\NoteEditDescriptionModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />

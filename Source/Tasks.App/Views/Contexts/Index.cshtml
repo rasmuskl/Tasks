@@ -1,4 +1,5 @@
-﻿@model Tasks.App.Models.ContextIndexModel
+﻿@using Tasks.App.Models
+@model ContextIndexModel
 
 @{
     ViewBag.Title = "Tasks";
@@ -33,7 +34,7 @@
     <ul>
     @foreach(var note in Model.Notes)
     {
-        <li>@note.Title - @note.DescriptionHtml @Html.ActionLink("[Edit]", "EditDescription", "Notes", new { id = note.NoteId }, null)</li>
+        <li>@note.Title - @Html.StripHtml(note.DescriptionHtml) @Html.ActionLink("[Edit]", "EditDescription", "Notes", new { id = note.NoteId }, null)</li>
     }
     </ul>
 
