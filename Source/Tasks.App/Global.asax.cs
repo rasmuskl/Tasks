@@ -6,8 +6,10 @@ using System.Web.Routing;
 using StructureMap;
 using System.Linq;
 using Tasks.Read;
+using Tasks.Read.Config;
 using Tasks.Write;
 using Tasks.Write.CommandHandlers;
+using Tasks.Write.Config;
 
 namespace Tasks.App
 {
@@ -25,11 +27,8 @@ namespace Tasks.App
                 x.Scan(scanner =>
                 {
                     scanner.TheCallingAssembly();
-                    scanner.AssemblyContainingType(typeof(ICommandHandler<>));
-                    scanner.AssemblyContainingType(typeof(IEventHandler<>));
-                    
-                    scanner.ConnectImplementationsToTypesClosing(typeof (IEventHandler<>));
-                    scanner.ConnectImplementationsToTypesClosing(typeof (IQueryHandler<,>));
+                    scanner.AssemblyContainingType(typeof(ReadRegistry));
+                    scanner.AssemblyContainingType(typeof(WriteRegistry));
 
                     scanner.LookForRegistries();
 

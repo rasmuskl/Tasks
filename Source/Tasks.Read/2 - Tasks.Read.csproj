@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ReadRegistry.cs" />
     <Compile Include="EventHandlers\ContextCreatedHandler.cs" />
     <Compile Include="EventHandlers\NoteCreatedHandler.cs" />
     <Compile Include="EventHandlers\TaskCompletedHandler.cs" />
