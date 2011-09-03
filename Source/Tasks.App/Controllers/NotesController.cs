@@ -59,7 +59,9 @@ namespace Tasks.App.Controllers
                 return View(model);
             }
 
+            var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
 
+            _executor.Execute(new ChangeNoteDescription(userId, id, model.Description));
 
             return RedirectToAction("Index", "Contexts");
         }
