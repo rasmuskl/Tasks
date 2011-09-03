@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Tasks.App.Models;
 using Tasks.Read;
 using Tasks.Read.Queries;
@@ -36,5 +37,18 @@ namespace Tasks.App.Controllers
             return RedirectToAction("Index", "Contexts");
         }
 
+
+        public ActionResult EditDescription(Guid id)
+        {
+            var model = new NoteEditDescriptionModel();
+
+            var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
+            var readModel = ReadStorage.Query(new QueryNoteById(userId, id));
+
+            model.Title = readModel.Title;
+            model.Description = readModel.DescriptionRaw;
+
+            return View(model);
+        }
     }
 }

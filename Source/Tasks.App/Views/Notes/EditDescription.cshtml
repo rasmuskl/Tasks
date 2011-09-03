@@ -1,0 +1,32 @@
+﻿@model Tasks.App.Models.NoteEditDescriptionModel
+
+<h2>@Model.Title</h2>
+
+@using(Html.BeginForm())
+{
+    
+    <div class="wmd-panel">
+        <div id="wmd-button-bar"></div>
+        <textarea class="wmd-input" id="wmd-input">
+This is the *first* editor.
+------------------------------
+
+Just plain **Markdown**, except that the input is sanitized:
+        </textarea>
+    </div>
+    <div id="wmd-preview" class="wmd-panel wmd-preview"></div>    
+    
+    
+    <input type="submit" />
+}
+
+
+
+<script type="text/javascript">
+    (function() {
+        var converter = Markdown.getSanitizingConverter();
+        var editor = new Markdown.Editor(converter);
+        editor.run();
+    })();
+</script>
+                

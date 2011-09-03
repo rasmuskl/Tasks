@@ -33,7 +33,7 @@
     <ul>
     @foreach(var note in Model.Notes)
     {
-        <li>@note.Title - @note.DescriptionHtml</li>
+        <li>@note.Title - @note.DescriptionHtml @Html.ActionLink("[Edit]", "EditDescription", "Notes", new { id = note.NoteId }, null)</li>
     }
     </ul>
 
