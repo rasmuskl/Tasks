@@ -77,10 +77,5 @@ namespace Tasks.Read
         {
             return Query(new QueryContextsByUserId(userId)).Where(x => x.ContextId != contextId);
         }
-
-        public static ContextReadModel GetContextById(Guid userId, Guid contextId)
-        {
-            return Query(new QueryContextsByUserId(userId)).FirstOrDefault(x => x.ContextId == contextId);
-        }
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="Models\NoteReadModel.cs" />
     <Compile Include="Models\TaskReadModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\QueryContextById.cs" />
     <Compile Include="Queries\QueryContextsByUserId.cs" />
     <Compile Include="Queries\QueryUserHasContextNamed.cs" />
     <Compile Include="Queries\QueryUserIdByEmail.cs" />

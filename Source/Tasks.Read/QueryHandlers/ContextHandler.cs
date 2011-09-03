@@ -8,7 +8,8 @@ namespace Tasks.Read.QueryHandlers
 {
     public class ContextHandler : 
         IQueryHandler<QueryContextsByUserId, List<ContextReadModel>>,
-        IQueryHandler<QueryUserHasContextNamed, bool>
+        IQueryHandler<QueryUserHasContextNamed, bool>,
+        IQueryHandler<QueryContextById, ContextReadModel>
     {
         public List<ContextReadModel> Handle(QueryContextsByUserId query)
         {
@@ -30,6 +31,11 @@ namespace Tasks.Read.QueryHandlers
         {
             return ReadStorage.Query(new QueryContextsByUserId(query.UserId))
                 .Any(x => string.Equals(x.Name, query.ContextName, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        public ContextReadModel Handle(QueryContextById query)
+        {
+            return ReadStorage.Query(new QueryContextsByUserId(query.UserId)).FirstOrDefault(x => x.ContextId == query.ContextId);
         }
     }
 }

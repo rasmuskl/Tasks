@@ -72,7 +72,7 @@ namespace Tasks.App.Controllers
         public ActionResult MoveTaskToContext(Guid targetContextId, Guid taskId, Guid fromContextId)
         {
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
-            var context = ReadStorage.GetContextById(userId, fromContextId);
+            var context = ReadStorage.Query(new QueryContextById(userId, fromContextId));
 
             _executor.Execute(new MoveTaskToContext(taskId, userId, targetContextId));
 
