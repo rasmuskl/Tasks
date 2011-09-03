@@ -4,23 +4,18 @@
 
 @using(Html.BeginForm())
 {
-    
-    <div class="wmd-panel">
-        <div id="wmd-button-bar"></div>
-        <textarea class="wmd-input" id="wmd-input">
-This is the *first* editor.
-------------------------------
-
-Just plain **Markdown**, except that the input is sanitized:
-        </textarea>
+    <div>
+        <div id="wmd-preview" class="wmd-panel wmd-preview">
+        </div>    
+        
+        <div class="wmd-panel">
+            <div id="wmd-button-bar"></div>
+            @Html.TextAreaFor(x => x.Description, new { @class="wmd-input", id = "wmd-input"})
+        </div>
     </div>
-    <div id="wmd-preview" class="wmd-panel wmd-preview"></div>    
     
-    
-    <input type="submit" />
+    <input type="submit" value="Edit" />
 }
-
-
 
 <script type="text/javascript">
     (function() {

@@ -136,6 +136,7 @@
     <Content Include="Scripts\pagedown\Markdown.Converter.js" />
     <Content Include="Scripts\pagedown\Markdown.Editor.js" />
     <Content Include="Scripts\pagedown\Markdown.Sanitizer.js" />
+    <Content Include="Scripts\pagedown\pagedown.css" />
     <Content Include="Scripts\pagedown\wmd-buttons.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
