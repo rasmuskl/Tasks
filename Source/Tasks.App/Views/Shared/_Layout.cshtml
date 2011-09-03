@@ -27,7 +27,8 @@
                 <ul id="menu">
                     @if(Request.IsAuthenticated) 
                     {
-                        Html.RenderAction("MenuList", "Contexts");
+                        <li>@Html.ActionLink("Notes", "Index", "Notes")</li>
+                       Html.RenderAction("MenuList", "Contexts");
                     }
                 </ul>
             </nav>

@@ -17,6 +17,22 @@ namespace Tasks.App.Controllers
             _executor = executor;
         }
 
+        public ActionResult Index()
+        {
+            var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
+            var readModel = ReadStorage.Query(new QueryNotesByContextId(userId, Guid.Empty));
+
+            return View(readModel);
+        }
+
+        public ActionResult Show(Guid id)
+        {
+            var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
+            var readModel = ReadStorage.Query(new QueryNoteById(userId, id));
+
+            return View(readModel);
+        }
+
         public ActionResult Create()
         {
             return View();

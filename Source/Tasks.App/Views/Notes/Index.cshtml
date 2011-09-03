@@ -1,0 +1,18 @@
+﻿@using Tasks.App.Models
+@model IEnumerable<Tasks.Read.Models.NoteReadModel>
+
+<h2>Notes</h2>
+
+<div>
+
+    <ul>
+    @foreach(var note in Model)
+    {
+        <li>@Html.ActionLink(note.Title, "Show", "Notes", new { id = note.NoteId}, null) - @Html.StripHtml(note.DescriptionHtml) @Html.ActionLink("[Edit]", "EditDescription", "Notes", new { id = note.NoteId }, null)</li>
+    }
+    </ul>
+
+</div>
+
+
+@Html.ActionLink("Create note", "Create", "Notes")

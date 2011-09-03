@@ -4,7 +4,7 @@ namespace Tasks.App.Models
 {
     public class NoteEditDescriptionModel
     {
-        [ScaffoldColumn(false)]
+        [ScaffoldColumn(false)] 
         public string Title { get; set; }
 
         [UIHint("Markdown")]
