@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Tasks.App.Models;
 using Tasks.Read;
@@ -52,7 +53,7 @@ namespace Tasks.App.Controllers
 
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
 
-            if(ReadStorage.UserHasContextNamed(userId, model.Name))
+            if(ReadStorage.Query(new QueryContextsByUserId(userId)).Any(x => string.Equals(x.Name, model.Name, StringComparison.InvariantCultureIgnoreCase)))
             {
                 ModelState.AddModelError("Name", "You already have a context by this name.");
             }

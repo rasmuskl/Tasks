@@ -46,11 +46,6 @@ namespace Tasks.Read
             return (T)result;
         }
 
-        public static bool UserHasContextNamed(Guid userId, string name)
-        {
-            return Query(new QueryContextsByUserId(userId)).Any(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));
-        }
-
         public static Guid GetContextIdByName(Guid userId, string name)
         {
             var context = Query(new QueryContextsByUserId(userId)).FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.InvariantCultureIgnoreCase));

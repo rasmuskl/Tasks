@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using Tasks.Read.Models;
 using Tasks.Read.Queries;
+using System.Linq;
 
 namespace Tasks.Read.QueryHandlers
 {
-    public class ContextByUserIdHandler : IQueryHandler<QueryContextsByUserId, List<ContextReadModel>>
+    public class ContextHandler : 
+        IQueryHandler<QueryContextsByUserId, List<ContextReadModel>>,
+        IQueryHandler<QueryUserHasContextNamed, bool>
     {
         public List<ContextReadModel> Handle(QueryContextsByUserId query)
         {
@@ -21,6 +24,12 @@ namespace Tasks.Read.QueryHandlers
             }
 
             return list;
+        }
+
+        public bool Handle(QueryUserHasContextNamed query)
+        {
+            return ReadStorage.Query(new QueryContextsByUserId(query.UserId))
+                .Any(x => string.Equals(x.Name, query.ContextName, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

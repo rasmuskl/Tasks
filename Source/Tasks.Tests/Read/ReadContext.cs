@@ -30,7 +30,7 @@ namespace Tasks.Tests.Read
                 });
         }
 
-        protected static void WithEvents(object evt)
+        protected static T WithEvent<T>(T evt)
         {
             var eventMessages = new List<EventMessage>
                 {
@@ -39,6 +39,8 @@ namespace Tasks.Tests.Read
 
             var commit = new Commit(Guid.NewGuid(), 0, Guid.NewGuid(), 0, DateTime.Now, null, eventMessages);
             ReadStorage.HandleCommit(commit);
+
+            return evt;
         }
     }
 }
