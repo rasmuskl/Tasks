@@ -80,6 +80,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContextsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -165,9 +166,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Tasks\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Tasks\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +179,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Tasks\CreateNote.cshtml" />
+    <Content Include="Views\Notes\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Contexts\MenuList.cshtml" />

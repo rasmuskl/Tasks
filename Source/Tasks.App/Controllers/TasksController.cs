@@ -40,26 +40,6 @@ namespace Tasks.App.Controllers
             return RedirectToAction("Index", "Contexts");
         }
 
-        public ActionResult CreateNote()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateNote(NoteCreateModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
-
-            _executor.Execute(new CreateNote(model.Title, model.Description, userId));
-
-            return RedirectToAction("Index", "Contexts");
-        }
-
         public ActionResult CompleteTask(Guid id)
         {
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
