@@ -35,16 +35,13 @@ namespace Tasks.Read
             var openHandlerType = typeof (IQueryHandler<,>);
             var closedHandlerType = openHandlerType.MakeGenericType(type, returnType);
 
-            var handler = ObjectFactory.GetInstance(closedHandlerType);
+            dynamic handler = ObjectFactory.GetInstance(closedHandlerType);
 
             try
             {
                 _lock.EnterReadLock();
 
-                var handleMethod = handler.GetType().GetMethod("Handle", new[] { type });
-                var result = handleMethod.Invoke(handler, new[] { query });
-
-                return (TReturn)result;
+                return (TReturn)handler.Handle((dynamic) query);
             }
             finally
             {

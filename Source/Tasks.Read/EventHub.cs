@@ -19,15 +19,14 @@ namespace Tasks.Read
             {
                 object @event = eventMessage.Body;
 
-                Type openGenericType = typeof(IEventHandler<>);
-                Type genericType = openGenericType.MakeGenericType(@event.GetType());
+                var openHandlerType = typeof(IEventHandler<>);
+                var closedHandlerType = openHandlerType.MakeGenericType(@event.GetType());
 
-                var instances = _container.GetAllInstances(genericType);
+                var instances = _container.GetAllInstances(closedHandlerType);
 
-                foreach (var instance in instances)
+                foreach (dynamic instance in instances)
                 {
-                    var handleMethod = instance.GetType().GetMethod("Handle", new[] { @event.GetType() });
-                    handleMethod.Invoke(instance, new[] {@event});
+                    instance.Handle((dynamic)@event);
                 }
             }
         }
