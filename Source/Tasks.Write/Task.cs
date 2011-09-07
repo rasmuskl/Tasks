@@ -22,6 +22,11 @@ namespace Tasks.Write
             ApplyUncommitted(new TaskMovedToContext(userId, _taskId, targetContextId));
         }
 
+        public void PrioritizeTask(Guid userId, Guid relativeTaskId, TaskRelativePriority relativePriority, DateTime utcPrioritized)
+        {
+            ApplyUncommitted(new TaskPrioritized(userId, _taskId, relativeTaskId, relativePriority, utcPrioritized));
+        }
+
         private void Apply(TaskCreated evt)
         {
             _taskId = evt.TaskId;
@@ -33,6 +38,11 @@ namespace Tasks.Write
         }
 
         private void Apply(TaskMovedToContext evt)
+        {
+            
+        }
+
+        private void Apply(TaskPrioritized evt)
         {
             
         }
