@@ -6,7 +6,8 @@ using Tasks.Read.Queries;
 namespace Tasks.Read.QueryHandlers
 {
     public class TaskHandler :
-        IQueryHandler<QueryTasksByContextId, IEnumerable<TaskReadModel>>
+        IQueryHandler<QueryTasksByContextId, IEnumerable<TaskReadModel>>,
+        IQueryHandler<QueryUserHasTask, bool>
     {
         public IEnumerable<TaskReadModel> Handle(QueryTasksByContextId query)
         {
@@ -14,6 +15,14 @@ namespace Tasks.Read.QueryHandlers
                 return new TaskReadModel[] { };
 
             return ReadStorage.Tasks[query.UserId].Where(x => x.ContextId == query.ContextId);
+        }
+
+        public bool Handle(QueryUserHasTask query)
+        {
+            if (!ReadStorage.Tasks.ContainsKey(query.UserId))
+                return false;
+
+            return ReadStorage.Tasks[query.UserId].Any(x => x.TaskId == query.TaskId);
         }
     }
 }

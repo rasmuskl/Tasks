@@ -11,13 +11,21 @@ namespace Tasks.Write.Commands
         public TaskRelativePriority TaskRelativePriority { get; set; }
         public DateTime UtcPrioritized { get; set; }
 
-        public PrioritizeTask(Guid userId, Guid movedTaskId, Guid relativeTaskId, TaskRelativePriority taskRelativePriority, DateTime prioritizedUtc)
+        public PrioritizeTask(Guid userId, Guid movedTaskId, Guid relativeTaskId, bool higherPriority, DateTime prioritizedUtc)
         {
             UserId = userId;
             MovedTaskId = movedTaskId;
             RelativeTaskId = relativeTaskId;
-            TaskRelativePriority = taskRelativePriority;
             UtcPrioritized = prioritizedUtc;
+
+            if(higherPriority)
+            {
+                TaskRelativePriority = TaskRelativePriority.PrioritizedHigher;
+            }
+            else
+            {
+                TaskRelativePriority = TaskRelativePriority.PrioritizedLower;
+            }
         }
     }
 }

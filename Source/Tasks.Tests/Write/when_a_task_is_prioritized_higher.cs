@@ -21,7 +21,7 @@ namespace Tasks.Tests.Write
                 AddToHistory(task1Created.TaskId, task1Created);
                 AddToHistory(task2Created.TaskId, task2Created);
 
-                _command = new PrioritizeTask(userRegistered.UserId, task2Created.TaskId, task1Created.TaskId, TaskRelativePriority.PrioritizedHigher, DateTime.Now);
+                _command = new PrioritizeTask(userRegistered.UserId, task2Created.TaskId, task1Created.TaskId, true, DateTime.Now);
             };
 
         Because of = () => _executor.Execute(_command);

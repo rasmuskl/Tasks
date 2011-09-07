@@ -66,6 +66,38 @@ namespace Tasks.App.Controllers
         [HttpPost]
         public JsonResult OrderTasks(OrderTaskInputModel model)
         {
+            var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
+
+            var originalIndex = Array.IndexOf(model.OriginalOrder, model.TaskId);
+            var newIndex = Array.IndexOf(model.NewOrder, model.TaskId);
+
+            if(originalIndex == -1 || newIndex == -1)
+            {
+                return Json(false);
+            }
+
+            if(newIndex == originalIndex)
+            {
+                return Json(true);
+            }
+
+            bool prioritizeHigher;
+            Guid relativeTaskId;
+
+            if(newIndex < originalIndex)
+            {
+                prioritizeHigher = true;
+                relativeTaskId = model.NewOrder[newIndex + 1];
+
+            }
+            else
+            {
+                prioritizeHigher = false;
+                relativeTaskId = model.NewOrder[newIndex - 1];
+            }
+
+            _executor.Execute(new PrioritizeTask(userId, model.TaskId, relativeTaskId, prioritizeHigher, DateTime.UtcNow));
+
             return Json(true);
         }
     }

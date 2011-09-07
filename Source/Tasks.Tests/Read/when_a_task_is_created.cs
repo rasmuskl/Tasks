@@ -26,5 +26,8 @@ namespace Tasks.Tests.Read
         It should_not_find_task_in_another_context = () =>
             ReadStorage.Query(new QueryTasksByContextId(_taskCreated.UserId, Guid.NewGuid()))
             .ShouldNotContain(x => x.TaskId == _taskCreated.TaskId);
+
+        It should_exist_as_a_task_for_the_user = () =>
+            ReadStorage.Query(new QueryUserHasTask(_taskCreated.UserId, _taskCreated.TaskId)).ShouldBeTrue();
     }
 }
