@@ -62,5 +62,11 @@ namespace Tasks.App.Controllers
 
             return RedirectToAction("Index", new { id = model.Name });
         }
+
+        [HttpPost]
+        public JsonResult OrderTasks(OrderTaskInputModel model)
+        {
+            return Json(true);
+        }
     }
 }

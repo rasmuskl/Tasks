@@ -89,6 +89,7 @@
     <Compile Include="Models\HtmlExtensions.cs" />
     <Compile Include="Models\NoteCreateModel.cs" />
     <Compile Include="Models\NoteEditDescriptionModel.cs" />
+    <Compile Include="Models\OrderTaskInputModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\LogOnModel.cs" />
     <Compile Include="Models\TaskCreateModel.cs" />

@@ -9,10 +9,13 @@
 
 <div>
 
-    <ul>
+    <ul class="sortable">
+
+    @{ int i = 1; }
+
     @foreach(var task in Model.Tasks)
     {
-        <li>@Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - @task.Title
+        <li id="@task.TaskId">@Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - @task.Title
         
         @foreach(var context in Model.OtherContexts)
         {
@@ -23,6 +26,32 @@
     </ul>
 
 </div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var originalOrder;
+        $(".sortable").sortable({
+            start: function (event, ui) {
+                originalOrder = $(".sortable").sortable('toArray');
+            },
+            update: function (event, ui) {
+                $.ajax({
+                    url: '@Url.Action("OrderTasks")',
+                    data: JSON.stringify({
+                        TaskId: ui.item[0].id,
+                        OriginalOrder: originalOrder,
+                        NewOrder: $(".sortable").sortable('toArray')
+                    }),
+                    type: 'POST',
+                    contentType: 'application/json, charset=utf-8',
+                    dataType: 'json'
+                });
+            }
+        });
+    });
+
+</script>
 
 
 @Html.ActionLink("Create task", "Create", "Tasks")
