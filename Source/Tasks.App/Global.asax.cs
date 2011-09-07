@@ -13,6 +13,8 @@ namespace Tasks.App
 {
     public class MvcApplication : HttpApplication
     {
+        public static DateTime AppStarted { get; private set; }
+
         public void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -37,6 +39,8 @@ namespace Tasks.App
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
 
             Storage.Init();
+
+            AppStarted = DateTime.Now;
         }
 
         private static void RegisterGlobalFilters(GlobalFilterCollection filters)
