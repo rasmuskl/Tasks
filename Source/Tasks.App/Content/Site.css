@@ -322,3 +322,18 @@ div#title {
 .tri-state {
     width: 6em;
 }
+
+ul.sortable {
+    padding-left: 10px;
+}
+
+.sortable li {
+    list-style: none;
+    border: 1px solid grey;
+    background-color: #eee;
+    color: #000;
+    margin-left: 0;
+    padding: 5px 10px 5px 10px;
+    margin-bottom: 3px;
+    border-radius: 5px;
+}
