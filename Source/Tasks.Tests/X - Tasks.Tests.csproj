@@ -75,6 +75,8 @@
     <Compile Include="Read\ReadContext.cs" />
     <Compile Include="Read\when_a_context_is_created.cs" />
     <Compile Include="Read\when_a_task_is_created.cs" />
+    <Compile Include="Read\when_a_task_is_prioritized_higher.cs" />
+    <Compile Include="Read\when_a_task_is_prioritized_lower.cs" />
     <Compile Include="Read\when_user_is_registered.cs" />
     <Compile Include="Write\when_create_context_is_processed.cs" />
     <Compile Include="Write\when_create_note_is_processed.cs" />
