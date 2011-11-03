@@ -12,10 +12,10 @@ namespace Tasks.Tests.Read
     {
         Establish readContext = () =>
             {
-                InitializeWriteContext();
+                InitializeContext();
             };
 
-        private static void InitializeWriteContext()
+        private static void InitializeContext()
         {
             ObjectFactory.Initialize(i =>
                 {
