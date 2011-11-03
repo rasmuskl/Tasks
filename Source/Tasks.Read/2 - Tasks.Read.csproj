@@ -77,6 +77,7 @@
     <Compile Include="Queries\QueryContextIdByName.cs" />
     <Compile Include="Queries\QueryContextsByUserId.cs" />
     <Compile Include="Queries\QueryContextsExceptContext.cs" />
+    <Compile Include="Queries\QueryRecentlyCompletedTasksByContextId.cs" />
     <Compile Include="Queries\QueryTasksByContextId.cs" />
     <Compile Include="Queries\QueryUserHasContextNamed.cs" />
     <Compile Include="Queries\QueryUserHasTask.cs" />

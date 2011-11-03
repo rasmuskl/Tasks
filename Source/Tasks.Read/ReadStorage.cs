@@ -16,6 +16,7 @@ namespace Tasks.Read
             _lock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
             Contexts = new Dictionary<Guid, List<ContextReadModel>>();
             Tasks = new Dictionary<Guid, List<TaskReadModel>>();
+            CompletedTasks = new Dictionary<Guid, List<TaskReadModel>>();
             Notes = new Dictionary<Guid, List<NoteReadModel>>();
             RegisteredEmails = new Dictionary<string, Guid>(StringComparer.InvariantCultureIgnoreCase);
             PasswordHashes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
@@ -26,6 +27,7 @@ namespace Tasks.Read
         internal static Dictionary<Guid, List<NoteReadModel>> Notes { get; private set; }
         public static Dictionary<string, Guid> RegisteredEmails { get; private set; }
         public static Dictionary<string, string> PasswordHashes { get; private set; }
+        internal static Dictionary<Guid, List<TaskReadModel>> CompletedTasks { get; private set; }
 
         public static TReturn Query<TReturn>(IQuery<TReturn> query)
         {

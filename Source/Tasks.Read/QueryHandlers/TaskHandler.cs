@@ -7,7 +7,8 @@ namespace Tasks.Read.QueryHandlers
 {
     public class TaskHandler :
         IQueryHandler<QueryTasksByContextId, IEnumerable<TaskReadModel>>,
-        IQueryHandler<QueryUserHasTask, bool>
+        IQueryHandler<QueryUserHasTask, bool>,
+        IQueryHandler<QueryRecentlyCompletedTasksByContextId, IEnumerable<TaskReadModel>>
     {
         public IEnumerable<TaskReadModel> Handle(QueryTasksByContextId query)
         {
@@ -23,6 +24,11 @@ namespace Tasks.Read.QueryHandlers
                 return false;
 
             return ReadStorage.Tasks[query.UserId].Any(x => x.TaskId == query.TaskId);
+        }
+
+        public IEnumerable<TaskReadModel> Handle(QueryRecentlyCompletedTasksByContextId query)
+        {
+            return ReadStorage.CompletedTasks[query.UserId].Where(x => x.ContextId == query.ContextId);
         }
     }
 }

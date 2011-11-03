@@ -25,5 +25,9 @@ namespace Tasks.Tests.Read
         It should_not_find_note_in_general_context = () =>
             ReadStorage.Query(new QueryTasksByContextId(_taskCompleted.UserId, Guid.Empty))
                 .ShouldNotContain(x => x.TaskId == _taskCompleted.TaskId);
+
+        It should_be_in_recently_completed = () =>
+            ReadStorage.Query(new QueryRecentlyCompletedTasksByContextId(_taskCompleted.UserId, Guid.Empty))
+                .ShouldContain(x => x.TaskId == _taskCompleted.TaskId);
     }
 }
