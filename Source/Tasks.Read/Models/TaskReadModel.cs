@@ -7,5 +7,6 @@ namespace Tasks.Read.Models
         public Guid TaskId { get; set; } 
         public string Title { get; set; }
         public Guid ContextId { get; set; }
+        public DateTime UtcCompleted { get; set; }
     }
 }

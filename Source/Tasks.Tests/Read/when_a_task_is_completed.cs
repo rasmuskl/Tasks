@@ -27,7 +27,15 @@ namespace Tasks.Tests.Read
                 .ShouldNotContain(x => x.TaskId == _taskCompleted.TaskId);
 
         It should_be_in_recently_completed = () =>
+            ReadStorage.Query(new QueryRecentlyCompletedTasks(_taskCompleted.UserId))
+                .ShouldContain(x => x.TaskId == _taskCompleted.TaskId);
+
+        It should_be_in_recently_completed_general = () =>
             ReadStorage.Query(new QueryRecentlyCompletedTasksByContextId(_taskCompleted.UserId, Guid.Empty))
                 .ShouldContain(x => x.TaskId == _taskCompleted.TaskId);
+
+        It should_not_be_in_recently_completed_other = () =>
+            ReadStorage.Query(new QueryRecentlyCompletedTasksByContextId(_taskCompleted.UserId, Guid.NewGuid()))
+                .ShouldNotContain(x => x.TaskId == _taskCompleted.TaskId);
     }
 }

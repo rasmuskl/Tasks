@@ -14,11 +14,13 @@ namespace Tasks.Read.EventHandlers
             if(ReadStorage.Tasks.TryGetValue(evt.UserId, out tasks))
             {
                 TaskReadModel task = tasks.FirstOrDefault(x => x.TaskId == evt.TaskId);
-
+                
                 if(task == null)
                 {
                     return;
                 }
+
+                task.UtcCompleted = evt.UtcCompleted;
 
                 List<TaskReadModel> completedTasks;
 

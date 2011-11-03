@@ -30,7 +30,9 @@
                     @if(Request.IsAuthenticated) 
                     {
                         <li>@Html.ActionLink("Notes", "Index", "Notes")</li>
-                       Html.RenderAction("MenuList", "Contexts");
+                        Html.RenderAction("MenuList", "Contexts");
+                        <li>@Html.ActionLink("Completed", "Index", "Completed")</li>
+                       
                     }
                 </ul>
             </nav>
