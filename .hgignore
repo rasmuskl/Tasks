@@ -14,3 +14,4 @@ Publish
 
 Source/packages/*
 Source/Packages/*
+Source/**.DotSettings.user
