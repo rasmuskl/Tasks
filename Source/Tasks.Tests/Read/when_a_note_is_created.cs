@@ -12,7 +12,7 @@ namespace Tasks.Tests.Read
 
         Establish context = () =>
             {
-                var userRegistered = ProcessedEvent(new UserRegistered(Guid.NewGuid(), "note-test@test.dk", "1234"));
+                var userRegistered = ProcessedEvent(new UserRegistered(Guid.NewGuid(), Guid.NewGuid() + "@test.dk", "1234"));
 
                 _noteCreated = new NoteCreated("Task 1", "Note desc", Guid.NewGuid(), userRegistered.UserId, DateTime.Now);
             };
