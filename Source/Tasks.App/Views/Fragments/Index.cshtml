@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Tasks.Read.Models.FragmentReadModel>
+
+@{
+    ViewBag.Title = "Fragments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Fragments</h2>
+
+<div>
+@using(Html.BeginForm("CreateFragment", "Fragments"))
+{
+    @Html.TextBox("text", null, new { style = "width: 600px" })
+    <input type="submit" value="Create" />
+}
+</div>
+
+<ul>
+    @foreach (var fragment in Model)
+    {
+        <li>@fragment.Text</li>
+    }
+</ul>
+
+<script type="text/javascript">
+    $("#text").focus();
+</script>

@@ -29,6 +29,7 @@
                 <ul id="menu">
                     @if(Request.IsAuthenticated) 
                     {
+                        <li>@Html.ActionLink("Fragments", "Index", "Fragments")</li>
                         <li>@Html.ActionLink("Notes", "Index", "Notes")</li>
                         Html.RenderAction("MenuList", "Contexts");
                         <li>@Html.ActionLink("Completed", "Index", "Completed")</li>

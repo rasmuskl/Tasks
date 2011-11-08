@@ -82,6 +82,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompletedController.cs" />
     <Compile Include="Controllers\ContextsController.cs" />
+    <Compile Include="Controllers\FragmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
@@ -216,6 +217,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Completed\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Fragments\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
