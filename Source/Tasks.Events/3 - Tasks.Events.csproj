@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextCreated.cs" />
+    <Compile Include="FragmentCreated.cs" />
     <Compile Include="NoteCreated.cs" />
     <Compile Include="NoteDescriptionChanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

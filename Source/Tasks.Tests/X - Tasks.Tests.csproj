@@ -84,6 +84,7 @@
     <Compile Include="Read\when_user_is_registered.cs" />
     <Compile Include="Write\when_a_task_is_prioritized_higher.cs" />
     <Compile Include="Write\when_create_context_is_processed.cs" />
+    <Compile Include="Write\when_create_fragment_is_processed.cs" />
     <Compile Include="Write\when_create_note_is_processed.cs" />
     <Compile Include="Write\when_note_description_is_changed.cs" />
     <Compile Include="Write\WriteContext.cs" />
