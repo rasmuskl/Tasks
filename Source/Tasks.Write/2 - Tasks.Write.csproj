@@ -78,8 +78,10 @@
     <Compile Include="Config\WriteRegistry.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Fragment.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="User.cs" />

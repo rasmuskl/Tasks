@@ -1,33 +1,21 @@
-using System;
-using EventStore;
 using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
     public class CreateNoteHandler : ICommandHandler<CreateNote>
     {
-        private readonly IStoreEvents _eventStore;
+        readonly IRepository _repository;
 
-        public CreateNoteHandler(IStoreEvents eventStore)
+        public CreateNoteHandler(IRepository repository)
         {
-            _eventStore = eventStore;
+            _repository = repository;
         }
 
         public void Handle(CreateNote command)
         {
-            using(var stream = _eventStore.CreateStream(command.NoteId))
-            {
-                var note = new Note();
-
-                note.CreateNote(command.Title, command.Description, command.NoteId, command.UserId, command.UtcCreated);
-
-                foreach (var uncommittedEvent in note.UncommittedEvents)
-                {
-                    stream.Add(new EventMessage { Body = uncommittedEvent });
-                }
-
-                stream.CommitChanges(Guid.NewGuid());
-            }
+            var note = _repository.Get<Note>(command.NoteId);
+            note.CreateNote(command.Title, command.Description, command.NoteId, command.UserId, command.UtcCreated);
+            _repository.Commit(command.NoteId, note);
         }
     }
 }

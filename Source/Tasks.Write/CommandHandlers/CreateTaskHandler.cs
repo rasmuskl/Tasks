@@ -1,26 +1,21 @@
-using System;
-using EventStore;
 using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
     public class CreateTaskHandler : ICommandHandler<CreateTask>
     {
+        readonly IRepository _repository;
+
+        public CreateTaskHandler(IRepository repository)
+        {
+            _repository = repository;
+        }
+
         public void Handle(CreateTask command)
         {
-            using(IEventStream stream = Storage.Store.CreateStream(command.TaskId))
-            {
-                var task = new Task();
-
-                task.CreateTask(command.Title, command.TaskId, command.UserId, command.UtcCreated);
-
-                foreach (var uncommittedEvent in task.UncommittedEvents)
-                {
-                    stream.Add(new EventMessage { Body = uncommittedEvent });
-                }
-
-                stream.CommitChanges(Guid.NewGuid());
-            }
+            var task = _repository.Get<Task>(command.TaskId);
+            task.CreateTask(command.Title, command.TaskId, command.UserId, command.UtcCreated);
+            _repository.Commit(command.TaskId, task);
         }
     }
 }

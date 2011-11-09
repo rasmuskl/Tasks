@@ -1,33 +1,21 @@
-﻿using System;
-using EventStore;
-using Tasks.Write.Commands;
+﻿using Tasks.Write.Commands;
 
 namespace Tasks.Write.CommandHandlers
 {
     public class CreateFragmentHandler : ICommandHandler<CreateFragment>
     {
-        readonly IStoreEvents _eventStore;
+        readonly IRepository _repository;
 
-        public CreateFragmentHandler(IStoreEvents eventStore)
+        public CreateFragmentHandler(IRepository repository)
         {
-            _eventStore = eventStore;
+            _repository = repository;
         }
 
         public void Handle(CreateFragment command)
         {
-            using (var stream = _eventStore.CreateStream(command.FragmentId))
-            {
-                var fragment = new Fragment();
-
-                fragment.CreateFragment(command.FragmentId, command.Text, command.UserId);
-
-                foreach (var uncommittedEvent in fragment.UncommittedEvents)
-                {
-                    stream.Add(new EventMessage { Body = uncommittedEvent });
-                }
-
-                stream.CommitChanges(Guid.NewGuid());
-            }
+            var fragment = _repository.Get<Fragment>(command.FragmentId);
+            fragment.CreateFragment(command.FragmentId, command.Text, command.UserId);
+            _repository.Commit(command.FragmentId, fragment);
         }
     }
 }
