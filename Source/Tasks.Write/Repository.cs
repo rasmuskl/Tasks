@@ -20,6 +20,21 @@ namespace Tasks.Write
             }
         }
 
+        public AggregateRoot Get(Type type, Guid id)
+        {
+            using (var stream = Storage.Store.OpenStream(id, 0, int.MaxValue))
+            {
+                var aggregate = (AggregateRoot)Activator.CreateInstance(type);
+
+                foreach (var committedEvent in stream.CommittedEvents)
+                {
+                    aggregate.ApplyCommitted(committedEvent.Body);
+                }
+
+                return aggregate;
+            }
+        }
+
         public void Commit(Guid id, AggregateRoot aggregate)
         {
             using (var stream = Storage.Store.OpenStream(id, 0, int.MaxValue))

@@ -62,6 +62,7 @@
     <Compile Include="CommandHandlers\CreateFragmentHandler.cs" />
     <Compile Include="CommandHandlers\CreateNoteHandler.cs" />
     <Compile Include="CommandHandlers\CreateTaskHandler.cs" />
+    <Compile Include="CommandHandlers\DelegateCommandHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="CommandHandlers\MoveTaskToContext.cs" />
     <Compile Include="CommandHandlers\PrioritizeTaskHandler.cs" />
