@@ -1,0 +1,38 @@
+﻿@model System.Collections.Generic.IEnumerable<Tasks.Read.Models.TaskReadModel>
+
+@{
+    ViewBag.Title = "Completed Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@helper FuzzyTime(DateTime utcWhen) {
+    var timespan = DateTime.UtcNow - utcWhen;
+
+    if (timespan < TimeSpan.FromSeconds(60))
+    {
+        @:Just now
+    } 
+    else if (timespan < TimeSpan.FromMinutes(60))
+    {
+        @: @((int)timespan.TotalMinutes)m
+    }
+    else if (timespan < TimeSpan.FromHours(24))
+    {
+        @: @((int)timespan.TotalHours)h
+    }
+    else
+    {
+        @: @((int)timespan.TotalDays)d
+    }
+}
+
+
+<h2>Completed Tasks</h2>
+
+<ul>
+    @foreach (var task in Model)
+    {
+        <li>@FuzzyTime(task.UtcCompleted) - @task.Title</li>
+    }
+
+</ul>

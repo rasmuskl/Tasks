@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Tasks.Events;
 using Tasks.Read.Models;
+using System.Linq;
 
 namespace Tasks.Read.EventHandlers
 {
@@ -12,7 +13,25 @@ namespace Tasks.Read.EventHandlers
 
             if(ReadStorage.Tasks.TryGetValue(evt.UserId, out tasks))
             {
-                tasks.RemoveAll(x => x.TaskId == evt.TaskId);
+                TaskReadModel task = tasks.FirstOrDefault(x => x.TaskId == evt.TaskId);
+                
+                if(task == null)
+                {
+                    return;
+                }
+
+                task.UtcCompleted = evt.UtcCompleted;
+
+                List<TaskReadModel> completedTasks;
+
+                if (!ReadStorage.CompletedTasks.TryGetValue(evt.UserId, out completedTasks))
+                {
+                    completedTasks = new List<TaskReadModel>();
+                    ReadStorage.CompletedTasks[evt.UserId] = completedTasks;
+                }
+
+                tasks.Remove(task);
+                completedTasks.Add(task);
             }
         }
     }
