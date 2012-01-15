@@ -13,15 +13,16 @@
 
     @foreach(var task in Model.Tasks)
     {
-        <li id="@task.TaskId">@Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
-            <img src="@Url.Content("~/Content/arrows-up-down.png")" class="handle" /> -
+        <li id="@task.TaskId">
+            <div class="container">
+                @Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
+                @task.Title
         
-        @task.Title
-        
-        @foreach(var context in Model.OtherContexts)
-        {
-            <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
-        }
+                @foreach(var context in Model.OtherContexts)
+                {
+                    <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
+                }
+            </div>
         </li>
     }
     </ul>
@@ -31,26 +32,29 @@
 <script type="text/javascript">
 
     $(function () {
-        var originalOrder;
-        $(".sortable").sortable({
-            handle: '.handle',
-            start: function (event, ui) {
-                originalOrder = $(".sortable").sortable('toArray');
-            },
-            update: function (event, ui) {
-                $.ajax({
-                    url: '@Url.Action("OrderTasks")',
-                    data: JSON.stringify({
-                        TaskId: ui.item[0].id,
-                        OriginalOrder: originalOrder,
-                        NewOrder: $(".sortable").sortable('toArray')
-                    }),
-                    type: 'POST',
-                    contentType: 'application/json, charset=utf-8',
-                    dataType: 'json'
-                });
-            }
-        });
+        var selected = $('.sortable li').first();
+        selected.addClass('selected');
+        
+//        var originalOrder;
+//        $(".sortable").sortable({
+//            handle: '.handle',
+//            start: function () {
+//                originalOrder = $(".sortable").sortable('toArray');
+//            },
+//            update: function (event, ui) {
+//                $.ajax({
+//                    url: '@Url.Action("OrderTasks")',
+//                    data: JSON.stringify({
+//                        TaskId: ui.item[0].id,
+//                        OriginalOrder: originalOrder,
+//                        NewOrder: $(".sortable").sortable('toArray')
+//                    }),
+//                    type: 'POST',
+//                    contentType: 'application/json, charset=utf-8',
+//                    dataType: 'json'
+//                });
+//            }
+//        });
     });
 
 </script>
