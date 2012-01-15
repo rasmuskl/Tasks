@@ -11,8 +11,6 @@
 
     <ul class="sortable">
 
-    @{ int i = 1; }
-
     @foreach(var task in Model.Tasks)
     {
         <li id="@task.TaskId">@Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
