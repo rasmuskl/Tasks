@@ -34,27 +34,48 @@
     $(function () {
         var selected = $('.sortable li').first();
         selected.addClass('selected');
-        
-//        var originalOrder;
-//        $(".sortable").sortable({
-//            handle: '.handle',
-//            start: function () {
-//                originalOrder = $(".sortable").sortable('toArray');
-//            },
-//            update: function (event, ui) {
-//                $.ajax({
-//                    url: '@Url.Action("OrderTasks")',
-//                    data: JSON.stringify({
-//                        TaskId: ui.item[0].id,
-//                        OriginalOrder: originalOrder,
-//                        NewOrder: $(".sortable").sortable('toArray')
-//                    }),
-//                    type: 'POST',
-//                    contentType: 'application/json, charset=utf-8',
-//                    dataType: 'json'
-//                });
-//            }
-//        });
+
+        $(document).jkey('down', moveSelectionDown);
+        $(document).jkey('up', moveSelectionUp);
+
+        function moveSelectionDown() {
+            moveSelection(selected.next());
+        }
+
+        function moveSelectionUp() {
+            moveSelection(selected.prev());
+        }
+
+        function moveSelection(newSelection) {
+            if (!newSelection || !newSelection.length) {
+                return;
+            }
+            selected.removeClass('selected');
+            selected = newSelection;
+            selected.addClass('selected');
+        }
+
+
+        //        var originalOrder;
+        //        $(".sortable").sortable({
+        //            handle: '.handle',
+        //            start: function () {
+        //                originalOrder = $(".sortable").sortable('toArray');
+        //            },
+        //            update: function (event, ui) {
+        //                $.ajax({
+        //                    url: '@Url.Action("OrderTasks")',
+        //                    data: JSON.stringify({
+        //                        TaskId: ui.item[0].id,
+        //                        OriginalOrder: originalOrder,
+        //                        NewOrder: $(".sortable").sortable('toArray')
+        //                    }),
+        //                    type: 'POST',
+        //                    contentType: 'application/json, charset=utf-8',
+        //                    dataType: 'json'
+        //                });
+        //            }
+        //        });
     });
 
 </script>
