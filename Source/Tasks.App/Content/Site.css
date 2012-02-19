@@ -326,18 +326,16 @@ div#title {
 ul.sortable {
     margin-left: 10px;
     padding-left: 0;
-    border-top: 1px solid grey;
 }
 
 .sortable li {
     list-style: none;
-    border: 1px solid grey;
     border-top: 0;
     margin: 0;
     padding: 0;
 }
 
-.selected .container {
+.selected > .task .container {
     border-left: 5px solid orange;
 }
 
@@ -351,4 +349,26 @@ ul.sortable {
 
 .marker {
     float: left;
+}
+
+.task {
+        border: 1px solid grey;
+}
+
+.children {
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+}
+
+.children li {
+    padding-left: 10px;
+}
+
+.children .task {
+    border-top: 0;
+}
+
+.tasks > li {
+    margin-bottom: 2px;
 }

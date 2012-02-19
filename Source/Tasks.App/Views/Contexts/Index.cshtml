@@ -9,20 +9,31 @@
 
 <div>
 
-    <ul class="sortable">
+    <ul class="sortable tasks">
 
     @foreach(var task in Model.Tasks)
     {
         <li id="@task.TaskId">
-            <div class="container">
-                @Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
-                @task.Title
+            <div class="task">
+                <div class="container">
+                    @Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
+                    @task.Title
         
-                @foreach(var context in Model.OtherContexts)
-                {
-                    <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
-                }
+                    @foreach(var context in Model.OtherContexts)
+                    {
+                        <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
+                    }
+                </div>
             </div>
+@*            <ul class="children">
+                <li>
+                    <div class="task">
+                        <div class="container">
+                            Test
+                        </div>
+                    </div>
+                </li>
+            </ul>*@
         </li>
     }
     </ul>
