@@ -35,24 +35,29 @@
         var selected = $('.sortable li').first();
         selected.addClass('selected');
 
-        $(document).bind('keydown', 'down', moveSelectionDown);
-        $(document).bind('keydown', 'up', moveSelectionUp);
-        $(document).bind('keydown', 'ctrl+down', msd);
+        $(document).bind('keydown', 'down', selectNext);
+        $(document).bind('keydown', 'up', selectPrev);
+        $(document).bind('keydown', 'ctrl+down', moveSelectionDown);
+        $(document).bind('keydown', 'ctrl+up', moveSelectionUp);
 
-        function msd() {
+        function moveSelectionDown() {
             selected.insertAfter(selected.next());
         }
-
-        function moveSelectionDown(key) {
-            console.log(key);
-            moveSelection(selected.next());
-        }
-
+        
         function moveSelectionUp() {
-            moveSelection(selected.prev());
+            selected.insertBefore(selected.prev());
         }
 
-        function moveSelection(newSelection) {
+        function selectNext(key) {
+            console.log(key);
+            selectOther(selected.next());
+        }
+
+        function selectPrev() {
+            selectOther(selected.prev());
+        }
+
+        function selectOther(newSelection) {
             if (!newSelection || !newSelection.length) {
                 return;
             }
