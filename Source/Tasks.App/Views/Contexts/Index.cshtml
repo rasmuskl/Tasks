@@ -35,10 +35,16 @@
         var selected = $('.sortable li').first();
         selected.addClass('selected');
 
-        $(document).jkey('down', moveSelectionDown);
-        $(document).jkey('up', moveSelectionUp);
+        $(document).bind('keydown', 'down', moveSelectionDown);
+        $(document).bind('keydown', 'up', moveSelectionUp);
+        $(document).bind('keydown', 'ctrl+down', msd);
 
-        function moveSelectionDown() {
+        function msd() {
+            selected.insertAfter(selected.next());
+        }
+
+        function moveSelectionDown(key) {
+            console.log(key);
             moveSelection(selected.next());
         }
 
