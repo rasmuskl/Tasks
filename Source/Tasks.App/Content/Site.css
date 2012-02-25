@@ -335,7 +335,7 @@ ul.sortable {
     padding: 0;
 }
 
-.selected > .task .container {
+.selected > div .container {
     border-left: 5px solid orange;
 }
 
@@ -351,7 +351,7 @@ ul.sortable {
     float: left;
 }
 
-.task {
+.sortable li > div {
         border: 1px solid grey;
 }
 
@@ -365,7 +365,7 @@ ul.sortable {
     padding-left: 10px;
 }
 
-.children .task {
+.children div {
     border-top: 0;
 }
 

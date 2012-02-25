@@ -1,8 +1,35 @@
 ﻿@using Tasks.App.Models
+@using Tasks.Read.Models
 @model ContextIndexModel
 
 @{
     ViewBag.Title = "Tasks";
+}
+
+@helper Task(TaskReadModel task)
+{
+    <li id="@task.TaskId" class="task">
+        <div>
+            <div class="container">
+                @Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
+                @task.Title
+        
+                @foreach(var context in Model.OtherContexts)
+                {
+                    <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
+                }
+            </div>
+        </div>
+@*            <ul class="children">
+            <li>
+                <div class="task">
+                    <div class="container">
+                        Test
+                    </div>
+                </div>
+            </li>
+        </ul>*@
+    </li>
 }
 
 <h2>Tasks</h2>
@@ -11,31 +38,18 @@
 
     <ul class="sortable tasks">
 
-    @foreach(var task in Model.Tasks)
-    {
-        <li id="@task.TaskId">
-            <div class="task">
+        @foreach(var task in Model.Tasks)
+        {
+            @Task(task)
+        }
+    
+        <li id="create-task" style="display: none">
+            <div>
                 <div class="container">
-                    @Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
-                    @task.Title
-        
-                    @foreach(var context in Model.OtherContexts)
-                    {
-                        <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
-                    }
+                    @Html.TextBox("taskname")
                 </div>
             </div>
-@*            <ul class="children">
-                <li>
-                    <div class="task">
-                        <div class="container">
-                            Test
-                        </div>
-                    </div>
-                </li>
-            </ul>*@
         </li>
-    }
     </ul>
 
 </div>
@@ -46,11 +60,15 @@
         var selected = $('.sortable li').first();
         selected.addClass('selected');
 
+        var createTask = $('#create-task');
+
         $(document).bind('keydown', 'down', selectNext);
         $(document).bind('keydown', 'up', selectPrev);
         $(document).bind('keydown', 'ctrl+down', moveSelectionDown);
         $(document).bind('keydown', 'ctrl+up', moveSelectionUp);
-
+        $(document).bind('keydown', 'a', appendAfterSelected);
+        $(createTask).find('input').bind('keydown', 'esc', hideCreateTask);
+        
         function moveSelectionDown() {
             selected.insertAfter(selected.next());
             updateOrder(selected);
@@ -62,26 +80,54 @@
         }
 
         function selectNext() {
-            selectOther(selected.next());
+            selectOther(selected.nextAll('.task:first'));
         }
 
         function selectPrev() {
-            selectOther(selected.prev());
+            selectOther(selected.prevAll('.task:first'));
+        }
+        
+        function appendAfterSelected(e) {
+            e.preventDefault();
+            createTask.insertAfter(selected);
+            createTask.fadeIn('fast');
+            selectOther(createTask);
+        }
+        
+        function hideCreateTask(e) {
+            e.preventDefault();
+            createTask.find('input').blur();
+            createTask.fadeOut('fast');
+            if(createTask.prev('.task')) {
+                selectOther(createTask.prev('.task'));
+            } else if(createTask.next('.task')) {
+                selectOther(createTask.next('.task'));
+            }
         }
 
         function selectOther(newSelection) {
+            console.log(newSelection);
             if (!newSelection || !newSelection.length) {
                 return;
             }
             selected.removeClass('selected');
             selected = newSelection;
             selected.addClass('selected');
+
+            if(selected.attr('id') == 'create-task') {
+                selected.find('input').focus();
+            }
+            
         }
 
         var originalOrder = getCurrentOrder();
 
         function updateOrder(task) {
             var newOrder = getCurrentOrder();
+            
+            if(!task.hasClass('task')) {
+                return;
+            }
 
             $.ajax({
                 url: '@Url.Action("OrderTasks")',
