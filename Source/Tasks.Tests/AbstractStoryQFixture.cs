@@ -18,5 +18,6 @@ namespace Tasks.Tests
             Scenario scenario = InitStory().WithScenario(scenarioName);
             scenarioFunc(scenario).Execute();
         }
+
     }
 }
