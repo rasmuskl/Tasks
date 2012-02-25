@@ -53,14 +53,15 @@
 
         function moveSelectionDown() {
             selected.insertAfter(selected.next());
+            debouncedUpdateOrder(selected);
         }
         
         function moveSelectionUp() {
             selected.insertBefore(selected.prev());
+            debouncedUpdateOrder(selected);
         }
 
-        function selectNext(key) {
-            console.log(key);
+        function selectNext() {
             selectOther(selected.next());
         }
 
@@ -77,6 +78,31 @@
             selected.addClass('selected');
         }
 
+        var originalOrder = getCurrentOrder();
+
+        function updateOrder(task) {
+            var newOrder = getCurrentOrder();
+
+            $.ajax({
+                url: '@Url.Action("OrderTasks")',
+                data: JSON.stringify({
+                    TaskId: task.attr('id'),
+                    OriginalOrder: originalOrder,
+                    NewOrder: newOrder
+                }),
+                type: 'POST',
+                contentType: 'application/json, charset=utf-8',
+                dataType: 'json'
+            });
+
+            originalOrder = newOrder;
+        }
+
+        var debouncedUpdateOrder = _.debounce(updateOrder, 1000);
+
+        function getCurrentOrder() {
+            return _($('.tasks > li').get()).map(function(elm) { return elm.id; });
+        }
 
         //        var originalOrder;
         //        $(".sortable").sortable({
@@ -85,18 +111,7 @@
         //                originalOrder = $(".sortable").sortable('toArray');
         //            },
         //            update: function (event, ui) {
-        //                $.ajax({
-        //                    url: '@Url.Action("OrderTasks")',
-        //                    data: JSON.stringify({
-        //                        TaskId: ui.item[0].id,
-        //                        OriginalOrder: originalOrder,
-        //                        NewOrder: $(".sortable").sortable('toArray')
-        //                    }),
-        //                    type: 'POST',
-        //                    contentType: 'application/json, charset=utf-8',
-        //                    dataType: 'json'
-        //                });
-        //            }
+                    //}
         //        });
     });
 
