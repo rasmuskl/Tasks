@@ -67,8 +67,8 @@ namespace Tasks.Tests.Read
         public void ShouldFindContextById()
         {
             Scenario(s => s.Given(ARegisteredUser)
-                              .When(ContextCreatedEventIsProcessed)
-                              .Then(ContextCanBeFoundById));
+                .When(ContextCreatedEventIsProcessed)
+                .Then(ContextCanBeFoundById));
 
         }
 
@@ -76,16 +76,16 @@ namespace Tasks.Tests.Read
         public void ShouldFindContextWhenGettingContextsExceptGeneralContext()
         {
             Scenario(s => s.Given(ARegisteredUser)
-                              .When(ContextCreatedEventIsProcessed)
-                              .Then(UserContextsExceptGeneralContainsContext));
+                .When(ContextCreatedEventIsProcessed)
+                .Then(UserContextsExceptGeneralContainsContext));
         }
 
         [Test]
         public void ShouldNotFindContextWhenGettingContextsExceptNewContext()
         {
             Scenario(s => s.Given(ARegisteredUser)
-                              .When(ContextCreatedEventIsProcessed)
-                              .Then(UserContextsExceptNewDoesNotContainContext));
+                .When(ContextCreatedEventIsProcessed)
+                .Then(UserContextsExceptNewDoesNotContainContext));
         }
 
         private void UserContextIdCanBeFoundByDifferentCaseName()
