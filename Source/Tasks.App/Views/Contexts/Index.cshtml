@@ -53,12 +53,12 @@
 
         function moveSelectionDown() {
             selected.insertAfter(selected.next());
-            debouncedUpdateOrder(selected);
+            updateOrder(selected);
         }
         
         function moveSelectionUp() {
             selected.insertBefore(selected.prev());
-            debouncedUpdateOrder(selected);
+            updateOrder(selected);
         }
 
         function selectNext() {
@@ -98,21 +98,10 @@
             originalOrder = newOrder;
         }
 
-        var debouncedUpdateOrder = _.debounce(updateOrder, 1000);
-
         function getCurrentOrder() {
             return _($('.tasks > li').get()).map(function(elm) { return elm.id; });
         }
-
-        //        var originalOrder;
-        //        $(".sortable").sortable({
-        //            handle: '.handle',
-        //            start: function () {
-        //                originalOrder = $(".sortable").sortable('toArray');
-        //            },
-        //            update: function (event, ui) {
-                    //}
-        //        });
+        
     });
 
 </script>
