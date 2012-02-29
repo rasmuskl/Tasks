@@ -68,35 +68,18 @@ namespace Tasks.App.Controllers
         {
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
 
-            var originalIndex = Array.IndexOf(model.OriginalOrder, model.TaskId);
-            var newIndex = Array.IndexOf(model.NewOrder, model.TaskId);
-
-            if(originalIndex == -1 || newIndex == -1)
+            if(model.OriginalPrev != model.NewPrev && model.NewPrev != Guid.Empty)
             {
-                return Json(false);
-            }
-
-            if(newIndex == originalIndex)
+                _executor.Execute(new PrioritizeTask(userId, model.TaskId, model.NewPrev, false, DateTime.UtcNow));    
+            } 
+            else if(model.OriginalNext != model.NewNext && model.NewNext != Guid.Empty)
             {
-                return Json(true);
-            }
-
-            bool prioritizeHigher;
-            Guid relativeTaskId;
-
-            if(newIndex < originalIndex)
-            {
-                prioritizeHigher = true;
-                relativeTaskId = model.NewOrder[newIndex + 1];
-
+                _executor.Execute(new PrioritizeTask(userId, model.TaskId, model.NewNext, true, DateTime.UtcNow));    
             }
             else
             {
-                prioritizeHigher = false;
-                relativeTaskId = model.NewOrder[newIndex - 1];
+                return Json(false);
             }
-
-            _executor.Execute(new PrioritizeTask(userId, model.TaskId, relativeTaskId, prioritizeHigher, DateTime.UtcNow));
 
             return Json(true);
         }

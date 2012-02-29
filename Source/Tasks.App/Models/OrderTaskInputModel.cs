@@ -7,5 +7,11 @@ namespace Tasks.App.Models
         public Guid TaskId { get; set; }
         public Guid[] OriginalOrder { get; set; }
         public Guid[] NewOrder { get; set; }
+
+        public Guid OriginalPrev { get; set; }
+        public Guid OriginalNext { get; set; }
+
+        public Guid NewPrev { get; set; }
+        public Guid NewNext { get; set; }
     }
 }

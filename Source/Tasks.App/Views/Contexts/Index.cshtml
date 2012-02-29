@@ -68,15 +68,35 @@
         $(document).bind('keydown', 'ctrl+up', moveSelectionUp);
         $(document).bind('keydown', 'a', appendAfterSelected);
         $(createTask).find('input').bind('keydown', 'esc', hideCreateTask);
-        
+
         function moveSelectionDown() {
-            selected.insertAfter(selected.next());
+            registerMoved(selected);
+            selected.insertAfter(selected.nextAll('.task:first'));
             updateOrder(selected);
         }
-        
+
         function moveSelectionUp() {
-            selected.insertBefore(selected.prev());
+            registerMoved(selected);
+            selected.insertBefore(selected.prevAll('.task:first'));
             updateOrder(selected);
+        }
+
+        function registerMoved(task) {
+            if (moves[task]) {
+                return;
+            }
+
+            console.log('register move', task);
+
+            var next = task.nextAll('.task:first');
+            var prev = task.prevAll('.task:first');
+            var parent = null;
+
+            moves[task] = {
+                next: next,
+                prev: prev,
+                parent: parent
+            };
         }
 
         function selectNext() {
@@ -86,21 +106,21 @@
         function selectPrev() {
             selectOther(selected.prevAll('.task:first'));
         }
-        
+
         function appendAfterSelected(e) {
             e.preventDefault();
             createTask.insertAfter(selected);
             createTask.fadeIn('fast');
             selectOther(createTask);
         }
-        
+
         function hideCreateTask(e) {
             e.preventDefault();
             createTask.find('input').blur();
             createTask.fadeOut('fast');
-            if(createTask.prev('.task')) {
+            if (createTask.prev('.task')) {
                 selectOther(createTask.prev('.task'));
-            } else if(createTask.next('.task')) {
+            } else if (createTask.next('.task')) {
                 selectOther(createTask.next('.task'));
             }
         }
@@ -113,18 +133,16 @@
             selected = newSelection;
             selected.addClass('selected');
 
-            if(selected.attr('id') == 'create-task') {
+            if (selected.attr('id') == 'create-task') {
                 selected.find('input').focus();
             }
-            
+
         }
 
-        var originalOrder = getCurrentOrder();
+        var moves = {};
 
         function updateOrder(task) {
-            var newOrder = getCurrentOrder();
-            
-            if(!task.hasClass('task')) {
+            if (!task.hasClass('task')) {
                 return;
             }
 
@@ -132,21 +150,24 @@
                 url: '@Url.Action("OrderTasks")',
                 data: JSON.stringify({
                     TaskId: task.attr('id'),
-                    OriginalOrder: originalOrder,
-                    NewOrder: newOrder
+                    OriginalPrev: moves[task].prev.attr('id'),
+                    OriginalNext: moves[task].next.attr('id'),
+                    NewPrev: task.prevAll('.task:first').attr('id'),
+                    NewNext: task.nextAll('.task:first').attr('id')
                 }),
                 type: 'POST',
                 contentType: 'application/json, charset=utf-8',
-                dataType: 'json'
+                dataType: 'json',
+                success: function () {
+                    delete moves[task];
+                }
             });
-
-            originalOrder = newOrder;
         }
 
         function getCurrentOrder() {
-            return _($('.tasks > li').get()).map(function(elm) { return elm.id; });
+            return _($('.tasks > li').get()).map(function (elm) { return elm.id; });
         }
-        
+
     });
 
 </script>
