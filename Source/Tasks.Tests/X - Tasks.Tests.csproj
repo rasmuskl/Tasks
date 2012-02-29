@@ -52,14 +52,18 @@
     <Reference Include="Machine.Specifications">
       <HintPath>..\packages\Machine.Specifications.0.4.24.0\lib\Machine.Specifications.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.mocks">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+    <Reference Include="StoryQ">
+      <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.dll</HintPath>
     </Reference>
-    <Reference Include="pnunit.framework">
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+    <Reference Include="StoryQ.pt-BR">
+      <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.pt-BR.dll</HintPath>
+    </Reference>
+    <Reference Include="StoryQ.sr-SP">
+      <HintPath>..\packages\StoryQ.2.0.5\lib\StoryQ.sr-SP.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.2.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -72,17 +76,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractStoryQFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Read\SpecContext.cs" />
+    <Compile Include="Read\SQReadContext.cs" />
     <Compile Include="Read\when_a_fragment_is_created.cs" />
     <Compile Include="Read\when_a_note_description_is_changed.cs" />
     <Compile Include="Read\when_a_note_is_created.cs" />
     <Compile Include="Read\ReadContext.cs" />
-    <Compile Include="Read\when_a_context_is_created.cs" />
+    <Compile Include="Read\WhenAContextIsCreated.cs" />
     <Compile Include="Read\when_a_task_is_completed.cs" />
     <Compile Include="Read\when_a_task_is_created.cs" />
     <Compile Include="Read\when_a_task_is_prioritized_higher.cs" />
     <Compile Include="Read\when_a_task_is_prioritized_lower.cs" />
     <Compile Include="Read\when_user_is_registered.cs" />
+    <Compile Include="StoryQHelper.cs" />
     <Compile Include="Write\when_a_task_is_prioritized_higher.cs" />
     <Compile Include="Write\when_create_context_is_processed.cs" />
     <Compile Include="Write\when_create_fragment_is_processed.cs" />

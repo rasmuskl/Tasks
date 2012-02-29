@@ -1,31 +1,55 @@
 ﻿@using Tasks.App.Models
+@using Tasks.Read.Models
 @model ContextIndexModel
 
 @{
     ViewBag.Title = "Tasks";
 }
 
+@helper Task(TaskReadModel task)
+{
+    <li id="@task.TaskId" class="task">
+        <div>
+            <div class="container">
+                @Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
+                @task.Title
+        
+                @foreach(var context in Model.OtherContexts)
+                {
+                    <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
+                }
+            </div>
+        </div>
+@*            <ul class="children">
+            <li>
+                <div class="task">
+                    <div class="container">
+                        Test
+                    </div>
+                </div>
+            </li>
+        </ul>*@
+    </li>
+}
+
 <h2>Tasks</h2>
 
 <div>
 
-    <ul class="sortable">
+    <ul class="sortable tasks">
 
-    @{ int i = 1; }
-
-    @foreach(var task in Model.Tasks)
-    {
-        <li id="@task.TaskId">@Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
-            <img src="@Url.Content("~/Content/arrows-up-down.png")" class="handle" /> -
-        
-        @task.Title
-        
-        @foreach(var context in Model.OtherContexts)
+        @foreach(var task in Model.Tasks)
         {
-            <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
+            @Task(task)
         }
+    
+        <li id="create-task" style="display: none">
+            <div>
+                <div class="container">
+                    @Html.TextBox("taskname")
+                </div>
+            </div>
         </li>
-    }
     </ul>
 
 </div>
@@ -33,26 +57,96 @@
 <script type="text/javascript">
 
     $(function () {
-        var originalOrder;
-        $(".sortable").sortable({
-            handle: '.handle',
-            start: function (event, ui) {
-                originalOrder = $(".sortable").sortable('toArray');
-            },
-            update: function (event, ui) {
-                $.ajax({
-                    url: '@Url.Action("OrderTasks")',
-                    data: JSON.stringify({
-                        TaskId: ui.item[0].id,
-                        OriginalOrder: originalOrder,
-                        NewOrder: $(".sortable").sortable('toArray')
-                    }),
-                    type: 'POST',
-                    contentType: 'application/json, charset=utf-8',
-                    dataType: 'json'
-                });
+        var selected = $('.sortable li').first();
+        selected.addClass('selected');
+
+        var createTask = $('#create-task');
+
+        $(document).bind('keydown', 'down', selectNext);
+        $(document).bind('keydown', 'up', selectPrev);
+        $(document).bind('keydown', 'ctrl+down', moveSelectionDown);
+        $(document).bind('keydown', 'ctrl+up', moveSelectionUp);
+        $(document).bind('keydown', 'a', appendAfterSelected);
+        $(createTask).find('input').bind('keydown', 'esc', hideCreateTask);
+        
+        function moveSelectionDown() {
+            selected.insertAfter(selected.next());
+            updateOrder(selected);
+        }
+        
+        function moveSelectionUp() {
+            selected.insertBefore(selected.prev());
+            updateOrder(selected);
+        }
+
+        function selectNext() {
+            selectOther(selected.nextAll('.task:first'));
+        }
+
+        function selectPrev() {
+            selectOther(selected.prevAll('.task:first'));
+        }
+        
+        function appendAfterSelected(e) {
+            e.preventDefault();
+            createTask.insertAfter(selected);
+            createTask.fadeIn('fast');
+            selectOther(createTask);
+        }
+        
+        function hideCreateTask(e) {
+            e.preventDefault();
+            createTask.find('input').blur();
+            createTask.fadeOut('fast');
+            if(createTask.prev('.task')) {
+                selectOther(createTask.prev('.task'));
+            } else if(createTask.next('.task')) {
+                selectOther(createTask.next('.task'));
             }
-        });
+        }
+
+        function selectOther(newSelection) {
+            if (!newSelection || !newSelection.length) {
+                return;
+            }
+            selected.removeClass('selected');
+            selected = newSelection;
+            selected.addClass('selected');
+
+            if(selected.attr('id') == 'create-task') {
+                selected.find('input').focus();
+            }
+            
+        }
+
+        var originalOrder = getCurrentOrder();
+
+        function updateOrder(task) {
+            var newOrder = getCurrentOrder();
+            
+            if(!task.hasClass('task')) {
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("OrderTasks")',
+                data: JSON.stringify({
+                    TaskId: task.attr('id'),
+                    OriginalOrder: originalOrder,
+                    NewOrder: newOrder
+                }),
+                type: 'POST',
+                contentType: 'application/json, charset=utf-8',
+                dataType: 'json'
+            });
+
+            originalOrder = newOrder;
+        }
+
+        function getCurrentOrder() {
+            return _($('.tasks > li').get()).map(function(elm) { return elm.id; });
+        }
+        
     });
 
 </script>

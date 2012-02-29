@@ -324,23 +324,51 @@ div#title {
 }
 
 ul.sortable {
-    padding-left: 10px;
+    margin-left: 10px;
+    padding-left: 0;
 }
 
 .sortable li {
     list-style: none;
-    border: 1px solid grey;
+    border-top: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.selected > div .container {
+    border-left: 5px solid orange;
+}
+
+.container {
+    border-left: 5px solid #eee;
     background-color: #eee;
     color: #000;
     margin-left: 0;
     padding: 5px 10px 5px 10px;
-    margin-bottom: 3px;
-    border-radius: 5px;
 }
 
-.sortable li .handle {
-    border: 1px solid #666; 
-    margin-bottom: -5px; 
-    background-color: #ddd; 
-    border-radius: 3px;
+.marker {
+    float: left;
+}
+
+.sortable li > div {
+        border: 1px solid grey;
+}
+
+.children {
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+}
+
+.children li {
+    padding-left: 10px;
+}
+
+.children div {
+    border-top: 0;
+}
+
+.tasks > li {
+    margin-bottom: 2px;
 }
