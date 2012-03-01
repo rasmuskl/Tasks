@@ -7,9 +7,9 @@ namespace Tasks.Write
     {
         private Guid _taskId;
 
-        public void CreateTask(string title, Guid taskId, Guid userId, DateTime utcCreated)
+        public void CreateTask(string title, Guid taskId, Guid userId, Guid contextId, DateTime utcCreated)
         {
-            ApplyUncommitted(new TaskCreated(title, taskId, userId, utcCreated));
+            ApplyUncommitted(new TaskCreated(title, taskId, userId, contextId, utcCreated));
         }
 
         public void CompleteTask(DateTime utcCompleted, Guid userId)

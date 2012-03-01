@@ -14,7 +14,7 @@ namespace Tasks.Write.CommandHandlers
         public void Handle(CreateTask command)
         {
             var task = _repository.Get<Task>(command.TaskId);
-            task.CreateTask(command.Title, command.TaskId, command.UserId, command.UtcCreated);
+            task.CreateTask(command.Title, command.TaskId, command.UserId, command.ContextId, command.UtcCreated);
             _repository.Commit(command.TaskId, task);
         }
     }

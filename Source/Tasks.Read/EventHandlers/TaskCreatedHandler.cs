@@ -13,7 +13,7 @@ namespace Tasks.Read.EventHandlers
                 ReadStorage.Tasks[evt.UserId] = new List<TaskReadModel>();
             }
 
-            ReadStorage.Tasks[evt.UserId].Add(new TaskReadModel { TaskId = evt.TaskId, Title = evt.Title });
+            ReadStorage.Tasks[evt.UserId].Add(new TaskReadModel { TaskId = evt.TaskId, Title = evt.Title, ContextId = evt.ContextId });
         }
     }
 }
