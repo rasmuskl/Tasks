@@ -1,6 +1,6 @@
-﻿using StoryQ;
+using StoryQ;
 
-namespace Tasks.Tests.Read
+namespace Tasks.Tests
 {
     public abstract class SpecContext : AbstractStoryQFixture
     {
@@ -11,8 +11,5 @@ namespace Tasks.Tests.Read
                 .AsA("x")
                 .IWant("x");
         }
-
-       
-
     }
 }
