@@ -14,7 +14,7 @@ namespace Tasks.Tests.Read
             {
                 var userRegistered = ProcessedEvent(new UserRegistered(Guid.NewGuid(), "task-test@test.dk", "1234"));
 
-                _taskCreated = new TaskCreated("Task 1", Guid.NewGuid(), userRegistered.UserId, DateTime.Now);
+                _taskCreated = new TaskCreated("Task 1", Guid.NewGuid(), userRegistered.UserId, Guid.Empty, DateTime.Now);
             };
 
         Because of = () => ProcessedEvent(_taskCreated);

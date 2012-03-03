@@ -15,8 +15,8 @@ namespace Tasks.Tests.Read
             {
                 var userRegistered = ProcessedEvent(new UserRegistered(Guid.NewGuid(), "prior-higher-test@test.dk", "1234"));
 
-                var task1Created = ProcessedEvent(new TaskCreated("task 1", Guid.NewGuid(), userRegistered.UserId, DateTime.Now));
-                var task2Created = ProcessedEvent(new TaskCreated("task 2", Guid.NewGuid(), userRegistered.UserId, DateTime.Now));
+                var task1Created = ProcessedEvent(new TaskCreated("task 1", Guid.NewGuid(), userRegistered.UserId, Guid.Empty, DateTime.Now));
+                var task2Created = ProcessedEvent(new TaskCreated("task 2", Guid.NewGuid(), userRegistered.UserId, Guid.Empty, DateTime.Now));
 
                 _taskPrioritized = new TaskPrioritized(userRegistered.UserId, task2Created.TaskId, task1Created.TaskId, TaskRelativePriority.PrioritizedHigher, DateTime.Now);
             };

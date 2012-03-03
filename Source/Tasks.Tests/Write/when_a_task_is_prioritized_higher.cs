@@ -14,8 +14,8 @@ namespace Tasks.Tests.Write
             {
                 var userRegistered = new UserRegistered(Guid.NewGuid(), "prior-higher-test@test.dk", "1234");
 
-                var task1Created = new TaskCreated("task 1", Guid.NewGuid(), userRegistered.UserId, DateTime.Now);
-                var task2Created = new TaskCreated("task 2", Guid.NewGuid(), userRegistered.UserId, DateTime.Now);
+                var task1Created = new TaskCreated("task 1", Guid.NewGuid(), userRegistered.UserId, Guid.Empty, DateTime.Now);
+                var task2Created = new TaskCreated("task 2", Guid.NewGuid(), userRegistered.UserId, Guid.Empty, DateTime.Now);
              
                 AddToHistory(userRegistered.UserId, userRegistered);
                 AddToHistory(task1Created.TaskId, task1Created);

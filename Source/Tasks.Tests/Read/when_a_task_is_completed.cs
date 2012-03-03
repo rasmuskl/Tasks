@@ -15,7 +15,7 @@ namespace Tasks.Tests.Read
         Establish context = () =>
             {
                 var userRegistered = ProcessedEvent(new UserRegistered(Guid.NewGuid(), Guid.NewGuid() + "@test.dk", "1234"));
-                var taskCreated = ProcessedEvent(new TaskCreated("task 1", Guid.NewGuid(), userRegistered.UserId, DateTime.UtcNow));
+                var taskCreated = ProcessedEvent(new TaskCreated("task 1", Guid.NewGuid(), userRegistered.UserId, Guid.Empty, DateTime.UtcNow));
 
                 _taskCompleted = new TaskCompleted(DateTime.UtcNow, userRegistered.UserId, taskCreated.TaskId);
             };

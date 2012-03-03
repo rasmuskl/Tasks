@@ -18,13 +18,5 @@ namespace Tasks.Events
             ContextId = contextId;
             UtcCreated = utcCreated;
         }
-
-        public TaskCreated(string title, Guid taskId, Guid userId, DateTime utcCreated)
-        {
-            Title = title;
-            TaskId = taskId;
-            UserId = userId;
-            UtcCreated = utcCreated;
-        }
     }
 }
