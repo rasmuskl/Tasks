@@ -35,7 +35,7 @@ namespace Tasks.App.Controllers
             IEnumerable<NoteReadModel> notes = ReadStorage.Query(new QueryNotesByContextId(userId, contextId));
             IEnumerable<ContextReadModel> otherContexts = ReadStorage.Query(new QueryContextsExceptContext(userId, contextId));
 
-            return View(new ContextIndexModel { Tasks = tasks, Notes = notes, OtherContexts = otherContexts });
+            return View(new ContextIndexModel { Tasks = tasks, Notes = notes, OtherContexts = otherContexts, ContextId = contextId });
         }
 
         public ActionResult Create()

@@ -61,6 +61,7 @@
         selected.addClass('selected');
 
         var createTask = $('#create-task');
+        var contextId = '@Model.ContextId';
 
         $(document).bind('keydown', 'down', selectNext);
         $(document).bind('keydown', 'up', selectPrev);
@@ -68,6 +69,7 @@
         $(document).bind('keydown', 'ctrl+up', moveSelectionUp);
         $(document).bind('keydown', 'a', appendAfterSelected);
         $(createTask).find('input').bind('keydown', 'esc', hideCreateTask);
+        $(createTask).find('input').bind('keydown', 'return', submitTask);
 
         function moveSelectionDown() {
             registerMoved(selected);
@@ -137,6 +139,25 @@
                 selected.find('input').focus();
             }
 
+        }
+        
+        function submitTask(e) {
+            console.log('submit', e);
+            $.ajax({
+                url: '@Url.Action("Create", "Tasks")',
+                data: JSON.stringify({
+                    ContextId: contextId,
+                    Title: $(createTask).find('input').val()
+                }),
+                type: 'POST',
+                contentType: 'application/json, charset=utf-8',
+                dataType: 'json',
+                success: function () {
+                    alert('boom');
+                }
+            });
+
+            return false;
         }
 
         var moves = {};

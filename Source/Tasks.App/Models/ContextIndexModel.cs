@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Tasks.Read.Models;
 
 namespace Tasks.App.Models
@@ -8,6 +9,6 @@ namespace Tasks.App.Models
         public IEnumerable<TaskReadModel> Tasks { get; set; }
         public IEnumerable<NoteReadModel> Notes { get; set; }
         public IEnumerable<ContextReadModel> OtherContexts { get; set; }
-
+        public Guid ContextId { get; set; }
     }
 }

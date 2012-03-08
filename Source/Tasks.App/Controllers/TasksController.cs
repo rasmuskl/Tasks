@@ -30,14 +30,14 @@ namespace Tasks.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Json(false);
             }
 
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
 
             _executor.Execute(new CreateTask(model.Title, userId));
 
-            return RedirectToAction("Index", "Contexts");
+            return Json(true);
         }
 
         public ActionResult CompleteTask(Guid id)
