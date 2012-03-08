@@ -34,10 +34,16 @@ namespace Tasks.App.Controllers
 
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
 
-            var command = new CreateTask(model.Title, userId);
-            _executor.Execute(command);
+            var createCommand = new CreateTask(model.Title, userId);
+            _executor.Execute(createCommand);
 
-            return Json(command.TaskId);
+            if(model.PrevTaskId != Guid.Empty)
+            {
+                var prioritizeCommand = new PrioritizeTask(userId, createCommand.TaskId, model.PrevTaskId, false, DateTime.UtcNow);
+                _executor.Execute(prioritizeCommand);
+            }
+
+            return Json(createCommand.TaskId);
         }
 
         public ActionResult CompleteTask(Guid id)
