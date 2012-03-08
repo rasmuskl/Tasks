@@ -10,5 +10,7 @@ namespace Tasks.App.Models
 
         [Required]
         public Guid ContextId { get; set; }
+
+        public Guid PrevTaskId { get; set; }
     }
 }

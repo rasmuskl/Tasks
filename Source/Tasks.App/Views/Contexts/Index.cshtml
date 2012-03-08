@@ -145,12 +145,14 @@
         
         function submitTask() {
             var title = $(createTask).find('input').val();
+            var prevTask = $(createTask).prevAll('.task').first();
 
             $.ajax({
                 url: '@Url.Action("Create", "Tasks")',
                 data: JSON.stringify({
                     ContextId: contextId,
-                    Title: title
+                    Title: title,
+                    PrevTaskId: prevTask ? prevTask.attr('id') : ''
                 }),
                 type: 'POST',
                 contentType: 'application/json, charset=utf-8',
