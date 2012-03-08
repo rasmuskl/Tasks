@@ -10,5 +10,6 @@ namespace Tasks.App.Models
         public IEnumerable<NoteReadModel> Notes { get; set; }
         public IEnumerable<ContextReadModel> OtherContexts { get; set; }
         public Guid ContextId { get; set; }
+        public string ContextName { get; set; }
     }
 }
