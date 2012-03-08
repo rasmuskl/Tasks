@@ -4,7 +4,7 @@ to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
 body {
-    background-color: #5c87b2;
+    background-color: #171613;
     font-size: .85em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -93,7 +93,7 @@ header h1, #header h1 {
     font-weight: bold;
     padding: 5px 0;
     margin: 0;
-    color: #fff;
+    color: #afafaf;
     border: none;
     line-height: 2em;
     font-size: 32px !important;
@@ -103,30 +103,24 @@ header h1, #header h1 {
 #main {
     padding: 30px 30px 15px 30px;
     background-color: #fff;
-    border-radius: 4px 0 0 0;
-    -webkit-border-radius: 4px 0 0 0;
-    -moz-border-radius: 4px 0 0 0;
+    border: 2px solid #BED600;
 }
 
 footer, 
 #footer {
-    background-color: #fff;
     color: #999;
     padding: 10px 0;
     text-align: center;
     line-height: normal;
     margin: 0 0 30px 0;
     font-size: .9em;
-    border-radius: 0 0 4px 4px;
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
 }
 
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu {
     border-bottom: 1px #5C87B2 solid;
-    padding: 0 0 2px;
+    padding: 0;
     position: relative;
     margin: 0;
     text-align: right;
@@ -147,18 +141,18 @@ ul#menu li#greeting {
 
 ul#menu li a {
     padding: 10px 20px;
-    font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
-    border-radius: 4px 4px 0 0;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
+    font-weight: bold;
+    background-color: #404040;
+    border: 1px solid #bed600;
+    border-bottom: 0;
+    color: #eee;
 }
 
 ul#menu li a:hover {
-    background-color: #fff;
+    background-color: #bed600;
+    color: #000;
     text-decoration: none;
 }
 
@@ -257,16 +251,16 @@ div#title {
     display: block;
     text-align: right;
     margin: 10px;
-    color: White;
+    color: #afafaf;
 }
 
 #logindisplay a:link {
-    color: white;
+    color: #afafaf;
     text-decoration: underline;
 }
 
 #logindisplay a:visited {
-    color: white;
+    color: #afafaf;
     text-decoration: underline;
 }
 
