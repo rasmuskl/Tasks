@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Tasks.App.Models;
 using Tasks.Read;
-using Tasks.Read.Models;
 using Tasks.Read.Queries;
 using Tasks.Write;
 using Tasks.Write.Commands;
@@ -35,9 +34,10 @@ namespace Tasks.App.Controllers
 
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
 
-            _executor.Execute(new CreateTask(model.Title, userId));
+            var command = new CreateTask(model.Title, userId);
+            _executor.Execute(command);
 
-            return Json(true);
+            return Json(command.TaskId);
         }
 
         public ActionResult CompleteTask(Guid id)

@@ -62,6 +62,7 @@
 
         var createTask = $('#create-task');
         var contextId = '@Model.ContextId';
+        var urlCompleteTask = '@Url.Action("CompleteTask", "Tasks")';
 
         $(document).bind('keydown', 'down', selectNext);
         $(document).bind('keydown', 'up', selectPrev);
@@ -141,8 +142,7 @@
 
         }
         
-        function submitTask(e) {
-            console.log('submit', e);
+        function submitTask() {
             $.ajax({
                 url: '@Url.Action("Create", "Tasks")',
                 data: JSON.stringify({
@@ -152,12 +152,22 @@
                 type: 'POST',
                 contentType: 'application/json, charset=utf-8',
                 dataType: 'json',
-                success: function () {
-                    alert('boom');
+                success: function (e) {
+                    console.log(e);
+                    buildClientSideTask(e, "test").insertAfter(createTask);
                 }
             });
 
             return false;
+        }
+        
+        // jQuery building - for now.
+        function buildClientSideTask(taskId, title) {
+            var liElm = $('<li>').attr('id', taskId).addClass('task');
+            var wrapperElm = $('<div>').appendTo(liElm);
+            var containerElm = $('<div>').addClass('container').appendTo(wrapperElm);
+            containerElm.html('<a href="' + urlCompleteTask + '/' + taskId + '">X</a> - ' + title);
+            return liElm;
         }
 
         var moves = {};
