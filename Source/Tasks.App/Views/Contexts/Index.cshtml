@@ -117,15 +117,17 @@
             selectOther(createTask);
         }
 
-        function hideCreateTask(e) {
-            e.preventDefault();
-            createTask.find('input').blur();
+        function hideCreateTask() {
+
+            createTask.find('input').val('').blur();
             createTask.fadeOut('fast');
             if (createTask.prev('.task')) {
                 selectOther(createTask.prev('.task'));
             } else if (createTask.next('.task')) {
                 selectOther(createTask.next('.task'));
             }
+
+            return false;
         }
 
         function selectOther(newSelection) {
@@ -139,22 +141,23 @@
             if (selected.attr('id') == 'create-task') {
                 selected.find('input').focus();
             }
-
         }
         
         function submitTask() {
+            var title = $(createTask).find('input').val();
+
             $.ajax({
                 url: '@Url.Action("Create", "Tasks")',
                 data: JSON.stringify({
                     ContextId: contextId,
-                    Title: $(createTask).find('input').val()
+                    Title: title
                 }),
                 type: 'POST',
                 contentType: 'application/json, charset=utf-8',
                 dataType: 'json',
                 success: function (e) {
-                    console.log(e);
-                    buildClientSideTask(e, "test").insertAfter(createTask);
+                    buildClientSideTask(e, title).insertBefore(createTask);
+                    $('input', createTask).select();
                 }
             });
 
@@ -202,7 +205,3 @@
     });
 
 </script>
-
-
-@Html.ActionLink("Create task", "Create", "Tasks")
-
