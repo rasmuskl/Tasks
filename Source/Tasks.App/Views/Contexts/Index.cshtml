@@ -71,6 +71,13 @@
         $(document).bind('keydown', 'a', appendAfterSelected);
         $(createTask).find('input').bind('keydown', 'esc', hideCreateTask);
         $(createTask).find('input').bind('keydown', 'return', submitTask);
+        
+        // Show create if no tasks.
+        if(!$('.task').length) {
+            createTask.appendTo($('.tasks'));
+            createTask.show();
+            selectOther(createTask);
+        }
 
         function moveSelectionDown() {
             registerMoved(selected);
@@ -111,14 +118,17 @@
         }
 
         function appendAfterSelected(e) {
-            e.preventDefault();
             createTask.insertAfter(selected);
             createTask.fadeIn('fast');
             selectOther(createTask);
+            return false;
         }
 
         function hideCreateTask() {
-
+            // Don't hide if no tasks showing
+            if(!$('.task').length) {
+                return false;
+            }
             createTask.find('input').val('').blur();
             createTask.fadeOut('fast');
             if (createTask.prev('.task')) {
