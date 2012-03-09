@@ -34,7 +34,7 @@ namespace Tasks.App.Controllers
 
             var userId = ReadStorage.Query(new QueryUserIdByEmail(User.Identity.Name));
 
-            var createCommand = new CreateTask(model.Title, userId);
+            var createCommand = new CreateTask(model.Title, userId, model.ContextId);
             _executor.Execute(createCommand);
 
             if(model.PrevTaskId != Guid.Empty)
