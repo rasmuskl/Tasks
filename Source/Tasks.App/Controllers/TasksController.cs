@@ -52,6 +52,11 @@ namespace Tasks.App.Controllers
 
             _executor.Execute(new CompleteTask(id, userId));
 
+            if(Request.IsAjaxRequest())
+            {
+                return Json(true);
+            }
+
             return RedirectToAction("Index", "Contexts");
         }
 
