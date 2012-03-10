@@ -9,7 +9,7 @@ using Machine.Specifications;
 
 namespace Tasks.Tests.Read
 {
-    public class TaskNestedFixture : NUReadContext
+    public class WhenARootTaskIsNested : NUReadContext
     {
         private TaskNested _taskNested;
 
