@@ -69,7 +69,7 @@
     <Compile Include="Read\ReadContext.cs" />
     <Compile Include="Read\WhenAContextIsCreated.cs" />
     <Compile Include="Read\when_a_task_is_completed.cs" />
-    <Compile Include="Read\when_a_task_is_created.cs" />
+    <Compile Include="Read\TaskCreateFixture.cs" />
     <Compile Include="Read\when_a_task_is_prioritized_higher.cs" />
     <Compile Include="Read\when_a_task_is_prioritized_lower.cs" />
     <Compile Include="Read\when_user_is_registered.cs" />
