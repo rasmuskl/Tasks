@@ -23,7 +23,28 @@ namespace Tasks.Read.EventHandlers
             // Nested under new parent
             if (parentTask != null)
             {
-                parentTask.NestedTasks.Add(task);
+                var oldParentTask = task.ParentTask;
+
+                bool found = false;
+                while (oldParentTask != null)
+                {
+                    if(oldParentTask.ParentTask == parentTask)
+                    {
+                        var oldParentRootParentIndex = parentTask.NestedTasks.IndexOf(oldParentTask);
+                        parentTask.NestedTasks.Insert(oldParentRootParentIndex + 1, task);
+                        found = true;
+                        break;
+                    }
+
+                    oldParentTask = oldParentTask.ParentTask;
+                }
+
+                // Moved to a different tree
+                if(!found)
+                {
+                    parentTask.NestedTasks.Add(task);
+                }
+
                 task.ParentTask = parentTask;
             }
             else // Unnested to root
