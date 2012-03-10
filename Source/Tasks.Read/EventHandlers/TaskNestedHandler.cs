@@ -17,6 +17,10 @@ namespace Tasks.Read.EventHandlers
             {
                 ReadStorage.Tasks[evt.UserId].Remove(task);
             }
+            else
+            {
+                task.ParentTask.NestedTasks.Remove(task);
+            }
 
             parentTask.NestedTasks.Add(task); 
             task.ParentTask = parentTask;
