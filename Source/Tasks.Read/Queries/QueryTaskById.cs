@@ -25,7 +25,23 @@ namespace Tasks.Read.Queries
                 if (!ReadStorage.Tasks.TryGetValue(query.UserId, out tasks))
                     return null;
 
-                return tasks.FirstOrDefault(x => x.TaskId == query.TaskId);
+                return FindTaskRecursive(tasks, query.TaskId);
+            }
+
+            private TaskReadModel FindTaskRecursive(IEnumerable<TaskReadModel> tasks, Guid taskId)
+            {
+                foreach (var task in tasks)
+                {
+                    if (task.TaskId == taskId)
+                        return task;
+
+                    var nestedTask = FindTaskRecursive(task.NestedTasks, taskId);
+
+                    if (nestedTask != null)
+                        return nestedTask;
+                }
+
+                return null;
             }
         }
     }

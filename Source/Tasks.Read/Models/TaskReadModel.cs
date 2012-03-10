@@ -15,6 +15,7 @@ namespace Tasks.Read.Models
         public Guid ContextId { get; set; }
         public DateTime UtcCompleted { get; set; }
 
+        public TaskReadModel ParentTask { get; set; }
         public List<TaskReadModel> NestedTasks { get; set; }
     }
 }
