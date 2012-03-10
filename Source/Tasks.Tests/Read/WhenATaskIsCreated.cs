@@ -7,7 +7,7 @@ using Tasks.Read.Queries;
 
 namespace Tasks.Tests.Read
 {
-    public class TaskCreateFixture : NUReadContext
+    public class WhenATaskIsCreated : NUReadContext
     {
         private static TaskCreated _taskCreated;
 

@@ -8,7 +8,7 @@ using Machine.Specifications;
 
 namespace Tasks.Tests.Write
 {
-    public class NestTaskFixture : NUWriteContext
+    public class WhenATaskIsNested : NUWriteContext
     {
         private Guid _task1Id;
         private Guid _task2Id;

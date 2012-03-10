@@ -73,11 +73,11 @@
     <Compile Include="Read\ReadContext.cs" />
     <Compile Include="Read\WhenAContextIsCreated.cs" />
     <Compile Include="Read\when_a_task_is_completed.cs" />
-    <Compile Include="Read\TaskCreateFixture.cs" />
+    <Compile Include="Read\WhenATaskIsCreated.cs" />
     <Compile Include="Read\when_a_task_is_prioritized_higher.cs" />
     <Compile Include="Read\when_a_task_is_prioritized_lower.cs" />
     <Compile Include="Read\when_user_is_registered.cs" />
-    <Compile Include="Write\NestTaskFixture.cs" />
+    <Compile Include="Write\WhenATaskIsNested.cs" />
     <Compile Include="Write\NUWriteContext.cs" />
     <Compile Include="Write\WhenATaskIsCreated.cs" />
     <Compile Include="Write\when_a_task_is_prioritized_higher.cs" />
