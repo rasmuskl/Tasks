@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using EventStore;
 using NUnit.Framework;
@@ -8,24 +9,29 @@ using Tasks.Read.Config;
 
 namespace Tasks.Tests.Read
 {
-    public abstract class SQReadContext : SpecContext
+    public abstract class NUReadContext
     {
-        [SetUp]
-        public void BeforeEachTest()
-        { 
-            InitializeContainer(); 
+        [TestFixtureSetUp]
+        public void BeforeAllTests()
+        {
+            InitializeContainer();
+            Given();
+            When();
         }
+
+        protected abstract void Given();
+        protected abstract void When();
 
         private static void InitializeContainer()
         {
             ObjectFactory.Initialize(i =>
+            {
+                i.Scan(s =>
                 {
-                    i.Scan(s =>
-                            {
-                                s.AssemblyContainingType<ReadRegistry>();
-                                s.LookForRegistries();
-                            });
+                    s.AssemblyContainingType<ReadRegistry>();
+                    s.LookForRegistries();
                 });
+            });
         }
 
         protected static T ProcessedEvent<T>(T evt)
