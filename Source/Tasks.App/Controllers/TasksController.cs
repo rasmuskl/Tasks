@@ -19,11 +19,6 @@ namespace Tasks.App.Controllers
             _executor = executor;
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Create(TaskCreateModel model)
         {
