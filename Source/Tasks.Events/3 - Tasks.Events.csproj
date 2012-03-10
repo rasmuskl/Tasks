@@ -50,6 +50,7 @@
     <Compile Include="TaskCompleted.cs" />
     <Compile Include="TaskCreated.cs" />
     <Compile Include="TaskMovedToContext.cs" />
+    <Compile Include="TaskNested.cs" />
     <Compile Include="TaskPrioritized.cs" />
     <Compile Include="TaskRelativePriority.cs" />
     <Compile Include="UserRegistered.cs" />

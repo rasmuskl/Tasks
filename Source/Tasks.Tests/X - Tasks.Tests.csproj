@@ -91,6 +91,8 @@
     <Compile Include="Read\when_user_is_registered.cs" />
     <Compile Include="SpecContext.cs" />
     <Compile Include="StoryQHelper.cs" />
+    <Compile Include="Write\NestTaskFixture.cs" />
+    <Compile Include="Write\NUWriteContext.cs" />
     <Compile Include="Write\SQWriteContext.cs" />
     <Compile Include="Write\WhenATaskIsCreated.cs" />
     <Compile Include="Write\when_a_task_is_prioritized_higher.cs" />

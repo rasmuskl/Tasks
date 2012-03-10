@@ -74,6 +74,7 @@
     <Compile Include="Commands\CreateNote.cs" />
     <Compile Include="Commands\CreateTask.cs" />
     <Compile Include="Commands\MoveTaskToContext.cs" />
+    <Compile Include="Commands\NestTask.cs" />
     <Compile Include="Commands\PrioritizeTask.cs" />
     <Compile Include="Commands\RegisterUser.cs" />
     <Compile Include="Config\WriteRegistry.cs" />

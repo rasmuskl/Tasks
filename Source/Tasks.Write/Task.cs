@@ -1,5 +1,6 @@
 using System;
 using Tasks.Events;
+using Tasks.Read.Config;
 
 namespace Tasks.Write
 {
@@ -27,6 +28,11 @@ namespace Tasks.Write
             ApplyUncommitted(new TaskPrioritized(userId, _taskId, relativeTaskId, relativePriority, utcPrioritized));
         }
 
+        public void NestTask(Guid userId, Guid parentTaskId, DateTime utcNested)
+        {
+            ApplyUncommitted(new TaskNested(userId, _taskId, parentTaskId, utcNested));
+        }
+
         private void Apply(TaskCreated evt)
         {
             _taskId = evt.TaskId;
@@ -43,6 +49,11 @@ namespace Tasks.Write
         }
 
         private void Apply(TaskPrioritized evt)
+        {
+            
+        }
+
+        private void Apply(TaskNested evt)
         {
             
         }
