@@ -41,5 +41,11 @@ namespace Tasks.Tests.Read
         {
             ReadStorage.Query(new QueryUserHasTask(_taskCreated.UserId, _taskCreated.TaskId)).ShouldBeTrue();
         }
+
+        [Test]
+        public void ShouldBeFindableById()
+        {
+            ReadStorage.Query(new QueryTaskById(_taskCreated.UserId, _taskCreated.TaskId)).ShouldNotBeNull();
+        }
     }
 }
