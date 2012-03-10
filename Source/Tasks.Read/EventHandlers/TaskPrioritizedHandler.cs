@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Tasks.Events;
-using Tasks.Read.Models;
 
 namespace Tasks.Read.EventHandlers
 {
