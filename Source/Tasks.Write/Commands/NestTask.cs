@@ -32,7 +32,7 @@ namespace Tasks.Write.Commands
             public void Handle(NestTask command)
             {
                 var task = _repository.Get<Task>(command.TaskId);
-                task.NestTask(command.TaskId, command.ParentTaskId, command.UtcNested);
+                task.NestTask(command.UserId, command.ParentTaskId, command.UtcNested);
                 _repository.Commit(command.TaskId, task);
             }
         }

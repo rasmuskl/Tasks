@@ -79,7 +79,7 @@ namespace Tasks.App
 
             DependencyResolver.SetResolver(new MvcApplication.StructureMapDependencyResolver(ObjectFactory.Container));
 
-            Storage.Init();
+            Storage.Init(ObjectFactory.Container);
 
             MvcApplication.AppStarted = DateTime.Now;
         }

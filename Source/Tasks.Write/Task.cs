@@ -1,6 +1,5 @@
 using System;
 using Tasks.Events;
-using Tasks.Read.Config;
 
 namespace Tasks.Write
 {

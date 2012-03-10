@@ -14,9 +14,10 @@ namespace Tasks.Tests.Write
     {
         protected static List<object> _eventsPublished;
         protected static CommandExecutor _executor;
+        private Container _container;
 
         [TestFixtureSetUp]
-        public void BeforeEachTest()
+        public void BeforeAllTests()
         {
             _eventsPublished = new List<object>();
             InitializeWriteContext();
@@ -29,26 +30,26 @@ namespace Tasks.Tests.Write
 
         private void InitializeWriteContext()
         {
-            ObjectFactory.Initialize(i =>
-            {
-                i.Scan(s =>
+            _container = new Container(i =>
                 {
-                    s.AssemblyContainingType<WriteRegistry>();
-                    s.LookForRegistries();
+                    i.Scan(s =>
+                                {
+                                    s.AssemblyContainingType<WriteRegistry>();
+                                    s.LookForRegistries();
+                                });
+
+                    i.For<IStoreEvents>()
+                        .Singleton()
+                        .Use(InitializeEventStore);
                 });
 
-                i.For<IStoreEvents>()
-                    .Singleton()
-                    .Use(InitializeEventStore);
-            }
-                );
-
-            _executor = ObjectFactory.GetInstance<CommandExecutor>();
+            _executor = _container.GetInstance<CommandExecutor>();
+            Storage.Store = _container.GetInstance<IStoreEvents>();
         }
 
         protected void AddToHistory(Guid entityId, object evt)
         {
-            var storeEvents = ObjectFactory.GetInstance<IStoreEvents>();
+            var storeEvents = _container.GetInstance<IStoreEvents>();
 
             using (var stream = storeEvents.OpenStream(entityId, 0, Int32.MaxValue))
             {
@@ -66,6 +67,6 @@ namespace Tasks.Tests.Write
                 .UsingSynchronousDispatcher(new DelegateMessagePublisher(x => _eventsPublished.AddRange(x.Events.Select(e => e.Body).ToList())))
                 .Build();
         }
-         
+
     }
 }

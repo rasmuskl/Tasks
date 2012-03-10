@@ -58,7 +58,7 @@ namespace Tasks.Tests.Write
         public void EventShouldContainCorrectUser()
         {
             var evt = _eventsPublished.First() as TaskNested;
-            evt.UserId.ShouldEqual(_task2Id);
+            evt.UserId.ShouldEqual(_userId);
         }
     }
 }

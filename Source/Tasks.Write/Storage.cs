@@ -8,17 +8,13 @@ namespace Tasks.Write
 {
     public static class Storage
     {
-        private static IStoreEvents _store = ObjectFactory.GetInstance<IStoreEvents>();
+        public static IStoreEvents Store { get; set; }
 
-        public static IStoreEvents Store
+        public static void Init(IContainer container)
         {
-            get { return _store; }
-            set { _store = value; }
-        }
+            Store = container.GetInstance<IStoreEvents>();
 
-        public static void Init()
-        {
-            IEnumerable<Commit> commits = _store.GetFrom(new DateTime(2000, 1, 1));
+            IEnumerable<Commit> commits = Store.GetFrom(new DateTime(2000, 1, 1));
 
             foreach (var commit in commits)
             {
