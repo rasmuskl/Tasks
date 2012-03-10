@@ -64,6 +64,7 @@
     <Compile Include="EventHandlers\TaskCompletedHandler.cs" />
     <Compile Include="EventHandlers\TaskCreatedHandler.cs" />
     <Compile Include="EventHandlers\TaskMovedToContextHandler.cs" />
+    <Compile Include="EventHandlers\TaskNestedHandler.cs" />
     <Compile Include="EventHandlers\TaskPrioritizedHandler.cs" />
     <Compile Include="EventHandlers\UserRegisteredHandler.cs" />
     <Compile Include="EventHub.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Queries\QueryContextsExceptContext.cs" />
     <Compile Include="Queries\QueryRecentlyCompletedTasks.cs" />
     <Compile Include="Queries\QueryRecentlyCompletedTasksByContextId.cs" />
+    <Compile Include="Queries\QueryTaskById.cs" />
     <Compile Include="Queries\QueryTasksByContextId.cs" />
     <Compile Include="Queries\QueryUserHasContextNamed.cs" />
     <Compile Include="Queries\QueryUserHasTask.cs" />
