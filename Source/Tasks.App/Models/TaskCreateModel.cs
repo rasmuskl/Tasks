@@ -12,5 +12,6 @@ namespace Tasks.App.Models
         public Guid ContextId { get; set; }
 
         public Guid PrevTaskId { get; set; }
+        public Guid ParentTaskId { get; set; }
     }
 }

@@ -71,6 +71,7 @@
         $(document).bind('keydown', 'ctrl+down', moveSelectionDown);
         $(document).bind('keydown', 'ctrl+up', moveSelectionUp);
         $(document).bind('keydown', 'a', appendAfterSelected);
+        $(document).bind('keydown', 'i', insertNestedIntoSelected);
         $(document).bind('keydown', 'x', completeSelectedTask);
         $(createTask).find('input').bind('keydown', 'esc', hideCreateTask);
         $(createTask).find('input').bind('keydown', 'return', submitTask);
@@ -133,6 +134,13 @@
 
         function appendAfterSelected() {
             createTask.insertAfter(selected);
+            createTask.fadeIn('fast');
+            selectOther(createTask);
+            return false;
+        }
+        
+        function insertNestedIntoSelected() {
+            createTask.appendTo(selected.find('.children'));
             createTask.fadeIn('fast');
             selectOther(createTask);
             return false;
@@ -201,13 +209,15 @@
         function submitTask() {
             var title = $(createTask).find('input').val();
             var prevTask = $(createTask).prevAll('.task').first();
+            var parentTask = $(createTask).parent().closest('.task');
 
             $.ajax({
                 url: '@Url.Action("Create", "Tasks")',
                 data: JSON.stringify({
                     ContextId: contextId,
                     Title: title,
-                    PrevTaskId: prevTask ? prevTask.attr('id') : ''
+                    PrevTaskId: prevTask ? prevTask.attr('id') : '',
+                    ParentTaskId: parentTask ? parentTask.attr('id') : ''
                 }),
                 type: 'POST',
                 contentType: 'application/json, charset=utf-8',

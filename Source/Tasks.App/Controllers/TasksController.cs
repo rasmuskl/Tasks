@@ -32,6 +32,12 @@ namespace Tasks.App.Controllers
             var createCommand = new CreateTask(model.Title, userId, model.ContextId);
             _executor.Execute(createCommand);
 
+            if(model.ParentTaskId != Guid.Empty)
+            {
+                var nestCommand = new NestTask(userId, createCommand.TaskId, model.ParentTaskId);
+                _executor.Execute(nestCommand);
+            }
+
             if(model.PrevTaskId != Guid.Empty)
             {
                 var prioritizeCommand = new PrioritizeTask(userId, createCommand.TaskId, model.PrevTaskId, false, DateTime.UtcNow);
