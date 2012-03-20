@@ -193,11 +193,11 @@
                 dataType: 'json',
                 success: function () {
                     if (selectedElm.prevAll('.task').length) {
-                        console.log('prev');
                         selectOther(selectedElm.prevAll('.task').first());
                     } else if (selectedElm.nextAll('.task').length) {
-                        console.log('next');
                         selectOther(selectedElm.nextAll('.task').first());
+                    } else if(selectedElm.parent().closest('.task').length) {
+                        selectOther(selectedElm.parent().closest('.task'));
                     }
 
                     selectedElm.remove();
