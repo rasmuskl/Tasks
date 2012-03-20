@@ -9,6 +9,7 @@ using Tasks.Read.Config;
 
 namespace Tasks.Tests.Read
 {
+    [TestFixture]
     public abstract class NUReadContext
     {
         [TestFixtureSetUp]
