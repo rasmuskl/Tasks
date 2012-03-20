@@ -2,6 +2,7 @@
 using Tasks.Events;
 using Tasks.Read.Models;
 using System.Linq;
+using Tasks.Read.Queries;
 
 namespace Tasks.Read.EventHandlers
 {
@@ -9,30 +10,32 @@ namespace Tasks.Read.EventHandlers
     {
         public void Handle(TaskCompleted evt)
         {
-            List<TaskReadModel> tasks;
+            List<TaskReadModel> container = ReadStorage.Tasks[evt.UserId];
 
-            if(ReadStorage.Tasks.TryGetValue(evt.UserId, out tasks))
+            TaskReadModel task = ReadStorage.Query(new QueryTaskById(evt.UserId, evt.TaskId));
+
+            if (task == null)
             {
-                TaskReadModel task = tasks.FirstOrDefault(x => x.TaskId == evt.TaskId);
-                
-                if(task == null)
-                {
-                    return;
-                }
-
-                task.UtcCompleted = evt.UtcCompleted;
-
-                List<TaskReadModel> completedTasks;
-
-                if (!ReadStorage.CompletedTasks.TryGetValue(evt.UserId, out completedTasks))
-                {
-                    completedTasks = new List<TaskReadModel>();
-                    ReadStorage.CompletedTasks[evt.UserId] = completedTasks;
-                }
-
-                tasks.Remove(task);
-                completedTasks.Add(task);
+                return;
             }
+
+            if (task.ParentTask != null)
+            {
+                container = task.ParentTask.NestedTasks;
+            }
+
+            task.UtcCompleted = evt.UtcCompleted;
+
+            List<TaskReadModel> completedTasks;
+
+            if (!ReadStorage.CompletedTasks.TryGetValue(evt.UserId, out completedTasks))
+            {
+                completedTasks = new List<TaskReadModel>();
+                ReadStorage.CompletedTasks[evt.UserId] = completedTasks;
+            }
+
+            container.Remove(task);
+            completedTasks.Add(task);
         }
     }
 }
