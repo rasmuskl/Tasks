@@ -20,15 +20,12 @@
                 }
             </div>
         </div>
-@*            <ul class="children">
-            <li>
-                <div class="task">
-                    <div class="container">
-                        Test
-                    </div>
-                </div>
-            </li>
-        </ul>*@
+        <ul class="children">
+            @foreach(var child in task.NestedTasks)
+            {
+                @Task(child)
+            }
+        </ul>
     </li>
 }
 
@@ -66,6 +63,8 @@
 
         $(document).bind('keydown', 'down', selectNext);
         $(document).bind('keydown', 'up', selectPrev);
+        $(document).bind('keydown', 'right', selectChild);
+        $(document).bind('keydown', 'left', selectParent);
         $(document).bind('keydown', 'ctrl+down', moveSelectionDown);
         $(document).bind('keydown', 'ctrl+up', moveSelectionUp);
         $(document).bind('keydown', 'a', appendAfterSelected);
@@ -113,6 +112,14 @@
             };
         }
 
+        function selectChild() {
+            selectOther($('.task', selected).first());
+        }
+
+        function selectParent() {
+            selectOther(selected.parent().closest('.task'));
+        }
+
         function selectNext() {
             selectOther(selected.nextAll('.task:first'));
         }
@@ -145,6 +152,8 @@
         }
 
         function selectOther(newSelection) {
+            console.log('selectOther', newSelection);
+
             if (!newSelection || !newSelection.length) {
                 return;
             }
