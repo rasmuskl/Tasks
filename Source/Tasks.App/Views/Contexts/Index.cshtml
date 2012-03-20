@@ -225,8 +225,10 @@
                 contentType: 'application/json, charset=utf-8',
                 dataType: 'json',
                 success: function (e) {
-                    buildClientSideTask(e, title).insertBefore(createTask);
-                    $('input', createTask).select();
+                    createTask.fadeOut('fast', function() {
+                        buildClientSideTask(e, title).insertBefore(createTask).fadeIn('fast');
+                        hideCreateTask();
+                    });
                 }
             });
 
