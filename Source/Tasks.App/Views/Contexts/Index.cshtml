@@ -6,7 +6,7 @@
     ViewBag.Title = "Tasks - " + Model.ContextName;
 }
 
-@helper Task(TaskReadModel task)
+@helper Task(TaskReadModel task, bool allowMoveContext)
 {
     <li id="@task.TaskId" class="task">
         <div>
@@ -14,16 +14,19 @@
                 @Html.ActionLink("X", "CompleteTask", "Tasks", new { id = task.TaskId }, null) - 
                 @task.Title
         
-                @foreach(var context in Model.OtherContexts)
+                @if(allowMoveContext)
                 {
-                    <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
+                    foreach(var context in Model.OtherContexts)
+                    {
+                        <span>[@Html.ActionLink("> "+context.Name, "MoveTaskToContext", "Tasks", new { targetContextId = context.ContextId, taskId = task.TaskId, fromContextId = task.ContextId }, null)]</span>
+                    }
                 }
             </div>
         </div>
         <ul class="children">
             @foreach(var child in task.NestedTasks)
             {
-                @Task(child)
+                @Task(child, false)
             }
         </ul>
     </li>
@@ -37,7 +40,7 @@
 
         @foreach(var task in Model.Tasks)
         {
-            @Task(task)
+            @Task(task, true)
         }
     
         <li id="create-task" style="display: none">
