@@ -70,8 +70,8 @@
         $(document).bind('keydown', 'left', selectParent);
         $(document).bind('keydown', 'ctrl+down', moveSelectionDown);
         $(document).bind('keydown', 'ctrl+up', moveSelectionUp);
-        $(document).bind('keydown', 'a', appendAfterSelected);
-        $(document).bind('keydown', 'i', insertNestedIntoSelected);
+        $(document).bind('keydown', 'a', openCreateTaskAfterSelected);
+        $(document).bind('keydown', 'i', openCreateTaskInsideSelected);
         $(document).bind('keydown', 'x', completeSelectedTask);
         $(createTask).find('input').bind('keydown', 'esc', hideCreateTask);
         $(createTask).find('input').bind('keydown', 'return', submitTask);
@@ -132,14 +132,14 @@
             selectOther(selected.prevAll('.task:first'));
         }
 
-        function appendAfterSelected() {
+        function openCreateTaskAfterSelected() {
             createTask.insertAfter(selected);
             createTask.fadeIn('fast');
             selectOther(createTask);
             return false;
         }
         
-        function insertNestedIntoSelected() {
+        function openCreateTaskInsideSelected() {
             createTask.appendTo(selected.find('.children'));
             createTask.fadeIn('fast');
             selectOther(createTask);
