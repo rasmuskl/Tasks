@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using Tasks.Events;
+using System.Linq;
+using Tasks.Read.Models;
+using Tasks.Read.Queries;
 
 namespace Tasks.Read.EventHandlers
 {
@@ -12,28 +15,40 @@ namespace Tasks.Read.EventHandlers
                 return;
             }
 
-            var tasks = ReadStorage.Tasks[evt.UserId];
+            var movedTask = ReadStorage.Query(new QueryTaskById(evt.UserId, evt.MovedTaskId));
+            var relativeTask = ReadStorage.Query(new QueryTaskById(evt.UserId, evt.RelativeTaskId));
 
-            var movedTaskIndex = tasks.FindIndex(x => x.TaskId == evt.MovedTaskId);
-            var relativedTaskIndex = tasks.FindIndex(x => x.TaskId == evt.RelativeTaskId);
+            if(movedTask.ParentTask != relativeTask.ParentTask)
+            {
+                return;
+            }
+
+            List<TaskReadModel> container = ReadStorage.Tasks[evt.UserId];
+
+            if(movedTask.ParentTask != null)
+            {
+                container = movedTask.ParentTask.NestedTasks;
+            }
+
+            var movedTaskIndex = container.FindIndex(x => x.TaskId == evt.MovedTaskId);
+            var relativedTaskIndex = container.FindIndex(x => x.TaskId == evt.RelativeTaskId);
 
             if(movedTaskIndex == -1 || relativedTaskIndex == -1)
             {
                 return;
             }
 
-            var movedTask = tasks[movedTaskIndex];
-            tasks.RemoveAt(movedTaskIndex);
+            container.RemoveAt(movedTaskIndex);
 
-            relativedTaskIndex = tasks.FindIndex(x => x.TaskId == evt.RelativeTaskId);
+            relativedTaskIndex = container.FindIndex(x => x.TaskId == evt.RelativeTaskId);
 
             if(evt.MoveDirection == TaskRelativePriority.PrioritizedHigher)
             {
-                tasks.Insert(relativedTaskIndex, movedTask);
+                container.Insert(relativedTaskIndex, movedTask);
             }
             else
             {
-                tasks.Insert(relativedTaskIndex + 1, movedTask);
+                container.Insert(relativedTaskIndex + 1, movedTask);
             }
         }
     }
