@@ -157,6 +157,8 @@
                 selectOther(createTask.prevAll('.task').first());
             } else if (createTask.nextAll('.task').length) {
                 selectOther(createTask.nextAll('.task').first());
+            } else if (createTask.closest('.task').length) {
+                selectOther(createTask.closest('.task'));
             }
 
             return false;
