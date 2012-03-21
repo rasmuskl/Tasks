@@ -242,6 +242,7 @@
             var wrapperElm = $('<div>').appendTo(liElm);
             var containerElm = $('<div>').addClass('container').appendTo(wrapperElm);
             containerElm.html('<a href="' + urlCompleteTask + '/' + taskId + '">X</a> - ' + title);
+            $('<ul>').addClass('children').appendTo(liElm);
             return liElm;
         }
 
