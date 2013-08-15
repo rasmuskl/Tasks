@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1 - Tasks.App", "Tasks.App\1 - Tasks.App.csproj", "{49EBD6BF-ABF8-4F6A-BC66-C8531E0D1DCB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2 - Tasks.Read", "Tasks.Read\2 - Tasks.Read.csproj", "{FEEE8FD3-3F8D-4BE2-9E78-87D9C761657E}"
@@ -10,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X - Tasks.Tests", "Tasks.Tests\X - Tasks.Tests.csproj", "{B2D31F81-5A9B-4659-AEC9-800CE5DE112A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3 - Tasks.Events", "Tasks.Events\3 - Tasks.Events.csproj", "{395EB0A1-8F06-4544-A58D-308FB7B8C028}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{92C8ECC9-D3F6-47D4-A185-1EED44A77583}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
